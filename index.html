@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#F5EDD8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Guga e Papai">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="capa-guga.jpg">
 <title>Guga e Papai - Jogos e Calculadoras</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@600;700;800;900&display=swap');
@@ -196,5 +201,10 @@ body::before{
       </a>
     </section>
   </main>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js'));
+}
+</script>
 </body>
 </html>
