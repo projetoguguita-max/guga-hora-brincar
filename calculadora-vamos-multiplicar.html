@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vamos multiplicar - mockup</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@600;700;800;900&display=swap');
+:root{
+  --creme:#F5EDD8;
+  --branco:#FFFDF8;
+  --bege:#E8D9B8;
+  --bege-esc:#C8B890;
+  --marrom:#8B5E3C;
+  --marrom-claro:#C4895A;
+  --azul:#2F7FC0;
+  --azul-claro:#5BA8E0;
+  --azul-esc:#1A5A90;
+  --verde:#4A9B6F;
+  --vermelho:#C84040;
+  --laranja:#D4733A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 18% 12%,rgba(255,253,248,.8),transparent 22%),
+    linear-gradient(180deg,var(--creme),#efe3c4);
+  color:var(--marrom);
+  font-family:Nunito,system-ui,sans-serif;
+  padding:18px;
+}
+.app{
+  width:min(980px,100%);
+  margin:0 auto;
+  display:grid;
+  gap:16px;
+}
+.topo{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  align-items:center;
+  gap:14px;
+}
+.capa{
+  width:92px;
+  height:92px;
+  object-fit:cover;
+  border-radius:22px;
+  border:4px solid var(--branco);
+  box-shadow:0 7px 0 var(--bege-esc),0 12px 24px rgba(94,65,34,.2);
+}
+.titulo{
+  margin:0;
+  font-family:"Baloo 2",Nunito,sans-serif;
+  font-size:clamp(38px,8vw,72px);
+  line-height:.88;
+  letter-spacing:0;
+  color:var(--marrom);
+}
+.titulo span{color:var(--azul)}
+.subtitulo{
+  margin:6px 0 0;
+  font-size:clamp(17px,3vw,22px);
+  font-weight:900;
+  color:#936846;
+}
+.painel{
+  background:var(--branco);
+  border:3px solid var(--bege-esc);
+  border-radius:20px;
+  box-shadow:0 8px 0 var(--bege-esc),0 16px 30px rgba(94,65,34,.16);
+}
+.config{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:14px;
+  align-items:end;
+  padding:16px;
+}
+label{
+  display:grid;
+  gap:7px;
+  font-size:18px;
+  font-weight:900;
+}
+input{
+  width:100%;
+  min-height:68px;
+  border:3px solid var(--bege-esc);
+  border-radius:18px;
+  background:#fffaf0;
+  color:var(--azul-esc);
+  font-family:"Baloo 2",Nunito,sans-serif;
+  font-size:42px;
+  font-weight:900;
+  text-align:center;
+  outline:none;
+  box-shadow:inset 0 3px 0 rgba(139,94,60,.1);
+}
+input:focus{border-color:var(--azul-claro)}
+button{
+  border:0;
+  cursor:pointer;
+  font-family:Nunito,system-ui,sans-serif;
+  font-weight:900;
+  color:var(--branco);
+  transition:transform .12s ease,box-shadow .12s ease,filter .12s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+button:active{transform:translateY(4px);box-shadow:none}
+.btn-pronto,.btn-novo,.btn-repetir,.btn-grupo{
+  min-height:68px;
+  padding:0 24px;
+  border-radius:18px;
+  font-size:21px;
+  white-space:nowrap;
+}
+.btn-pronto{
+  background:linear-gradient(180deg,var(--laranja),#b95825);
+  box-shadow:0 7px 0 #8d3e18;
+}
+.placar{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  padding:14px;
+}
+.numero-box{
+  min-height:132px;
+  border:3px solid var(--bege);
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  align-content:center;
+  background:#fffaf0;
+}
+.numero-label{
+  font-size:17px;
+  font-weight:900;
+  color:#9a704f;
+  text-transform:uppercase;
+}
+.numero{
+  font-family:"Baloo 2",Nunito,sans-serif;
+  font-size:clamp(58px,12vw,92px);
+  line-height:.9;
+  color:var(--azul);
+}
+.numero.verde{color:var(--verde)}
+.area-jogo{
+  padding:16px;
+  display:grid;
+  gap:14px;
+}
+.texto-guia{
+  margin:0;
+  font-size:22px;
+  line-height:1.2;
+  font-weight:900;
+  text-align:center;
+}
+.texto-guia strong{
+  color:var(--azul-esc);
+  font-family:"Baloo 2",Nunito,sans-serif;
+  font-size:1.18em;
+}
+.btn-grupo{
+  width:100%;
+  min-height:78px;
+  background:linear-gradient(180deg,var(--azul-claro),var(--azul));
+  box-shadow:0 8px 0 var(--azul-esc);
+  font-size:25px;
+}
+.btn-grupo:disabled{
+  cursor:default;
+  filter:saturate(.65);
+  opacity:.68;
+  transform:none;
+  box-shadow:0 5px 0 var(--azul-esc);
+}
+.mesa{
+  min-height:220px;
+  padding:14px;
+  border:3px dashed var(--bege-esc);
+  border-radius:18px;
+  background:
+    linear-gradient(0deg,rgba(232,217,184,.24),rgba(232,217,184,.24)),
+    #fffaf0;
+  overflow:auto;
+}
+.vazio{
+  min-height:188px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  color:#9a704f;
+  font-size:21px;
+  font-weight:900;
+}
+.grupos{
+  display:grid;
+  gap:10px;
+  justify-content:start;
+}
+.grupo{
+  display:grid;
+  grid-template-columns:42px 1fr;
+  align-items:center;
+  gap:10px;
+  animation:entrar .24s ease-out both;
+}
+.grupo-numero{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  background:var(--bege);
+  border:2px solid var(--bege-esc);
+  color:var(--marrom);
+  font-family:"Baloo 2",Nunito,sans-serif;
+  font-size:24px;
+  font-weight:900;
+}
+.linha-bolinhas{
+  display:grid;
+  grid-template-columns:repeat(var(--por-grupo),54px);
+  gap:9px;
+}
+.bola{
+  width:54px;
+  aspect-ratio:1;
+  border-radius:50%;
+  border:4px solid var(--azul-esc);
+  background:
+    radial-gradient(circle at 34% 28%,rgba(255,255,255,.78),transparent 25%),
+    linear-gradient(180deg,var(--azul-claro),var(--azul));
+  box-shadow:0 5px 0 var(--azul-esc),0 8px 12px rgba(26,90,144,.2);
+}
+.resultado{
+  display:none;
+  padding:18px;
+  text-align:center;
+}
+.resultado.ativo{display:block}
+.resultado h2{
+  margin:0;
+  font-family:"Baloo 2",Nunito,sans-serif;
+  font-size:clamp(38px,7vw,62px);
+  line-height:1;
+  color:var(--verde);
+}
+.conta-final{
+  margin:4px 0 14px;
+  font-family:"Baloo 2",Nunito,sans-serif;
+  font-size:clamp(30px,6vw,50px);
+  font-weight:900;
+  color:var(--marrom);
+}
+.acoes{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
+}
+.btn-novo{
+  background:linear-gradient(180deg,var(--marrom-claro),var(--marrom));
+  box-shadow:0 7px 0 #5c3820;
+}
+.btn-repetir{
+  background:linear-gradient(180deg,var(--verde),#32734e);
+  box-shadow:0 7px 0 #245438;
+}
+@keyframes entrar{
+  from{opacity:0;transform:translateY(12px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@media (max-width:680px){
+  body{padding:12px}
+  .topo{grid-template-columns:76px 1fr;gap:10px}
+  .capa{width:76px;height:76px;border-radius:18px}
+  .config{grid-template-columns:1fr 1fr}
+  .btn-pronto{grid-column:1/-1}
+  .placar{grid-template-columns:1fr}
+  .numero-box{min-height:110px}
+  .grupo{grid-template-columns:34px 1fr;gap:8px}
+  .grupo-numero{width:34px;height:34px;border-radius:12px;font-size:21px}
+  .linha-bolinhas{grid-template-columns:repeat(var(--por-grupo),44px);gap:7px}
+  .bola{width:44px;border-width:3px}
+  .btn-grupo{font-size:22px}
+}
+</style>
+</head>
+<body>
+<main class="app">
+  <section class="topo">
+    <img class="capa" src="capa-guga.jpg" alt="Guga">
+    <div>
+      <h1 class="titulo">Vamos <span>multiplicar</span></h1>
+      <p class="subtitulo">Coloque grupos de bolinhas até faltar zero.</p>
+    </div>
+  </section>
+
+  <section class="painel config" aria-label="Escolher conta">
+    <label>
+      Bolinhas por grupo
+      <input id="por-grupo" type="number" inputmode="numeric" min="1" max="12" value="2">
+    </label>
+    <label>
+      Quantas vezes
+      <input id="vezes" type="number" inputmode="numeric" min="1" max="12" value="5">
+    </label>
+    <button class="btn-pronto" id="btn-pronto" type="button">Pronto</button>
+  </section>
+
+  <section class="painel placar" aria-live="polite">
+    <div class="numero-box">
+      <div class="numero-label">Faltam grupos</div>
+      <div class="numero" id="faltam">5</div>
+    </div>
+    <div class="numero-box">
+      <div class="numero-label">Total de bolinhas</div>
+      <div class="numero verde" id="total">0</div>
+    </div>
+  </section>
+
+  <section class="painel area-jogo">
+    <p class="texto-guia" id="guia">Cada toque coloca <strong>2</strong> bolinhas.</p>
+    <button class="btn-grupo" id="btn-grupo" type="button">Colocar 2 bolinhas</button>
+    <div class="mesa" aria-label="Grupos de bolinhas">
+      <div class="vazio" id="vazio">Toque no botão azul para começar.</div>
+      <div class="grupos" id="grupos"></div>
+    </div>
+  </section>
+
+  <section class="painel resultado" id="resultado" aria-live="polite">
+    <h2>Muito bem!</h2>
+    <p class="conta-final" id="conta-final">2 x 5 = 10</p>
+    <div class="acoes">
+      <button class="btn-repetir" id="btn-repetir" type="button">Fazer de novo</button>
+      <button class="btn-novo" id="btn-novo" type="button">Nova conta</button>
+    </div>
+  </section>
+</main>
+
+<script>
+const porGrupoEl=document.getElementById('por-grupo');
+const vezesEl=document.getElementById('vezes');
+const prontoEl=document.getElementById('btn-pronto');
+const grupoBtn=document.getElementById('btn-grupo');
+const repetirEl=document.getElementById('btn-repetir');
+const novoEl=document.getElementById('btn-novo');
+const faltamEl=document.getElementById('faltam');
+const totalEl=document.getElementById('total');
+const guiaEl=document.getElementById('guia');
+const gruposEl=document.getElementById('grupos');
+const vazioEl=document.getElementById('vazio');
+const resultadoEl=document.getElementById('resultado');
+const contaFinalEl=document.getElementById('conta-final');
+
+let porGrupo=2;
+let vezes=5;
+let faltam=5;
+let colocados=0;
+
+function limitar(n,min,max){
+  n=parseInt(n,10);
+  if(Number.isNaN(n))return min;
+  return Math.max(min,Math.min(max,n));
+}
+
+function atualizarTextos(){
+  faltamEl.textContent=faltam;
+  totalEl.textContent=colocados*porGrupo;
+  guiaEl.innerHTML=`Cada toque coloca <strong>${porGrupo}</strong> bolinhas.`;
+  grupoBtn.textContent=faltam>0?`Colocar ${porGrupo} bolinhas`:'Conta completa';
+  grupoBtn.disabled=faltam<=0;
+}
+
+function montar(){
+  porGrupo=limitar(porGrupoEl.value,1,12);
+  vezes=limitar(vezesEl.value,1,12);
+  porGrupoEl.value=porGrupo;
+  vezesEl.value=vezes;
+  faltam=vezes;
+  colocados=0;
+  gruposEl.innerHTML='';
+  vazioEl.style.display='grid';
+  resultadoEl.classList.remove('ativo');
+  atualizarTextos();
+}
+
+function criarGrupo(){
+  if(faltam<=0)return;
+  colocados++;
+  faltam--;
+  vazioEl.style.display='none';
+
+  const grupo=document.createElement('div');
+  grupo.className='grupo';
+
+  const numero=document.createElement('div');
+  numero.className='grupo-numero';
+  numero.textContent=colocados;
+  grupo.appendChild(numero);
+
+  const linha=document.createElement('div');
+  linha.className='linha-bolinhas';
+  linha.style.setProperty('--por-grupo',porGrupo);
+  for(let i=0;i<porGrupo;i++){
+    const bola=document.createElement('div');
+    bola.className='bola';
+    linha.appendChild(bola);
+  }
+  grupo.appendChild(linha);
+  gruposEl.appendChild(grupo);
+  atualizarTextos();
+
+  if(faltam===0)mostrarResultado();
+}
+
+function mostrarResultado(){
+  contaFinalEl.textContent=`${porGrupo} x ${vezes} = ${porGrupo*vezes}`;
+  resultadoEl.classList.add('ativo');
+  resultadoEl.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function novaConta(){
+  porGrupoEl.value=Math.floor(Math.random()*5)+2;
+  vezesEl.value=Math.floor(Math.random()*6)+3;
+  montar();
+}
+
+prontoEl.addEventListener('click',montar);
+grupoBtn.addEventListener('click',criarGrupo);
+repetirEl.addEventListener('click',montar);
+novoEl.addEventListener('click',novaConta);
+porGrupoEl.addEventListener('change',montar);
+vezesEl.addEventListener('change',montar);
+
+montar();
+</script>
+</body>
+</html>
