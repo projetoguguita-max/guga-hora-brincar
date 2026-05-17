@@ -1,0 +1,20 @@
+{
+  "name": "Guga e Papai - Hora de Brincar",
+  "short_name": "Guga e Papai",
+  "description": "Jogos e calculadoras do Guga e Papai.",
+  "lang": "pt-BR",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5EDD8",
+  "theme_color": "#F5EDD8",
+  "icons": [
+    {
+      "src": "capa-guga.jpg",
+      "sizes": "400x400",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
