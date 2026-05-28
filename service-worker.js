@@ -1,9 +1,10 @@
-const CACHE_NAME = 'guga-hora-brincar-v2';
+const CACHE_NAME = 'guga-hora-brincar-v3';
 const ASSETS = [
   './',
   './index.html',
   './hora_brincar.html',
   './calculadora-vamos-tirar-v2.html',
+  './soma-vai-um.html',
   './calculadora-vamos-multiplicar.html',
   './monstrinho-comparacao.html',
   './capa-guga.jpg',
