@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="theme-color" content="#F5EDD8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Guga e Papai">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="capa-guga.jpg">
+<title>Empilhar e colorir blocos</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@600;700;800;900&display=swap');
+:root{
+  --creme:#F5EDD8;
+  --branco:#FFFDF8;
+  --bege:#E8D9B8;
+  --bege-esc:#C8B890;
+  --marrom:#8B5E3C;
+  --azul:#2F7FC0;
+  --azul-claro:#5BA8E0;
+  --azul-esc:#1A5A90;
+  --verde:#4A9B6F;
+  --verde-claro:#67B984;
+  --vermelho:#C84040;
+  --laranja:#D4733A;
+  --roxo:#7C5AC7;
+  --amarelo:#F2C94C;
+  --rosa:#D963A5;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;overflow-x:hidden}
+body{
+  min-height:100vh;
+  background:linear-gradient(180deg,var(--creme),#efe3c4);
+  color:var(--marrom);
+  font-family:Nunito,system-ui,sans-serif;
+  padding:14px;
+  touch-action:manipulation;
+}
+.app{
+  width:min(1060px,100%);
+  min-height:calc(100vh - 28px);
+  margin:0 auto;
+  display:grid;
+  grid-template-rows:auto 1fr;
+  gap:12px;
+}
+.topo{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:12px;
+}
+.capa{
+  width:76px;
+  height:76px;
+  object-fit:cover;
+  border-radius:18px;
+  border:4px solid var(--branco);
+  box-shadow:0 5px 0 var(--bege-esc),0 10px 20px rgba(94,65,34,.18);
+}
+.titulo{
+  margin:0;
+  font-family:"Baloo 2",Nunito,sans-serif;
+  font-size:clamp(30px,6vw,58px);
+  line-height:.9;
+  letter-spacing:0;
+}
+.titulo span{color:var(--azul)}
+.subtitulo{
+  margin:3px 0 0;
+  font-size:clamp(15px,2.4vw,20px);
+  font-weight:900;
+  color:#936846;
+}
+button{
+  border:0;
+  cursor:pointer;
+  font-family:Nunito,system-ui,sans-serif;
+  font-weight:900;
+  color:var(--branco);
+  transition:transform .12s ease,box-shadow .12s ease,filter .12s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+button:active{transform:translateY(4px);box-shadow:none}
+button:disabled{
+  cursor:default;
+  opacity:.55;
+  filter:saturate(.7);
+  transform:none;
+}
+.btn{
+  min-height:58px;
+  padding:0 18px;
+  border-radius:16px;
+  font-size:18px;
+  white-space:nowrap;
+}
+.btn-azul{
+  background:linear-gradient(180deg,var(--azul-claro),var(--azul));
+  box-shadow:0 6px 0 var(--azul-esc);
+}
+.btn-laranja{
+  background:linear-gradient(180deg,var(--laranja),#b95825);
+  box-shadow:0 6px 0 #8d3e18;
+}
+.jogo{
+  min-height:0;
+  display:grid;
+  grid-template-columns:minmax(280px,.82fr) minmax(320px,1.18fr);
+  gap:12px;
+}
+.painel{
+  min-height:0;
+  background:var(--branco);
+  border:3px solid var(--bege-esc);
+  border-radius:20px;
+  box-shadow:0 7px 0 var(--bege-esc),0 14px 26px rgba(94,65,34,.14);
+}
+.controles{
+  padding:12px;
+  display:grid;
+  grid-template-rows:auto auto auto 1fr auto;
+  gap:12px;
+}
+.mensagem{
+  min-height:64px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:8px 12px;
+  background:#fffaf0;
+  border:3px solid var(--bege);
+  border-radius:16px;
+  font-family:"Baloo 2",Nunito,sans-serif;
+  font-size:clamp(22px,3.2vw,30px);
+  line-height:1.05;
+  font-weight:900;
+  color:var(--azul-esc);
+}
+.contador{
+  min-height:108px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.numero-box{
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:3px;
+  background:#fffaf0;
+  border:3px solid var(--bege);
+  border-radius:18px;
+}
+.rotulo{
+  font-size:14px;
+  font-weight:900;
+  text-transform:uppercase;
+  color:#9a704f;
+}
+.numero{
+  font-family:"Baloo 2",Nunito,sans-serif;
+  font-size:clamp(48px,8vw,74px);
+  line-height:.86;
+  color:var(--azul);
+}
+.numero.verde{color:var(--verde)}
+.texto-guia{
+  margin:0;
+  font-size:clamp(17px,2.5vw,22px);
+  line-height:1.18;
+  font-weight:900;
+  text-align:center;
+}
+.paleta{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.cor{
+  min-height:60px;
+  border-radius:17px;
+  border:4px solid #fff;
+  box-shadow:0 6px 0 rgba(87,63,36,.28),0 9px 18px rgba(94,65,34,.12);
+  color:#fff;
+  text-shadow:0 2px 0 rgba(0,0,0,.18);
+  font-size:17px;
+}
+.cor[aria-pressed="true"]{
+  outline:4px solid var(--marrom);
+  outline-offset:2px;
+  transform:translateY(-2px);
+}
+.acoes{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.area{
+  padding:12px;
+  display:grid;
+  grid-template-rows:1fr auto;
+  gap:12px;
+}
+.mesa{
+  min-height:0;
+  display:grid;
+  place-items:end center;
+  padding:14px;
+  border:3px dashed var(--bege-esc);
+  border-radius:18px;
+  background:
+    linear-gradient(0deg,rgba(232,217,184,.24),rgba(232,217,184,.24)),
+    #fffaf0;
+  overflow:hidden;
+}
+.torre{
+  width:min(720px,100%);
+  height:100%;
+  min-height:360px;
+  display:grid;
+  grid-template-columns:repeat(10,minmax(0,1fr));
+  align-items:end;
+  gap:5px;
+}
+.coluna{
+  min-width:0;
+  height:100%;
+  display:grid;
+  grid-template-rows:repeat(10,minmax(0,1fr));
+  gap:3px;
+  padding:4px;
+  border:3px solid transparent;
+  border-radius:13px;
+}
+.coluna.ativa{
+  border-color:var(--azul-claro);
+  background:rgba(91,168,224,.12);
+}
+.bloco,.slot{
+  width:100%;
+  min-height:0;
+  border:3px solid rgba(255,255,255,.72);
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  font-family:"Baloo 2",Nunito,sans-serif;
+  font-size:clamp(10px,2.5vw,19px);
+  line-height:1;
+  font-weight:900;
+}
+.bloco{
+  box-shadow:0 6px 0 rgba(87,63,36,.22),inset 0 -7px 0 rgba(0,0,0,.1);
+  color:#fff;
+  text-shadow:0 2px 0 rgba(0,0,0,.18);
+  animation:entrar .18s ease-out both;
+}
+.slot{
+  border:3px dashed var(--bege-esc);
+  color:#9a704f;
+  background:rgba(255,250,240,.62);
+}
+.slot:disabled{
+  opacity:.34;
+  filter:none;
+}
+.botao-bloco{
+  width:100%;
+  min-height:82px;
+  border-radius:20px;
+  background:linear-gradient(180deg,var(--azul-claro),var(--azul));
+  box-shadow:0 8px 0 var(--azul-esc);
+  font-family:"Baloo 2",Nunito,sans-serif;
+  font-size:clamp(27px,5vw,42px);
+  line-height:1;
+}
+@keyframes entrar{
+  from{transform:translateY(18px) scale(.96);opacity:.2}
+  to{transform:translateY(0) scale(1);opacity:1}
+}
+@media (max-width:760px){
+  body{padding:10px}
+  .app{min-height:calc(100vh - 20px);gap:10px}
+  .topo{grid-template-columns:auto 1fr}
+  .topo .btn{grid-column:1 / -1;min-height:48px}
+  .capa{width:64px;height:64px;border-radius:16px}
+  .jogo{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .controles{grid-template-rows:auto auto auto auto auto}
+  .paleta{grid-template-columns:repeat(3,1fr)}
+  .cor{min-height:54px;font-size:15px}
+  .area{min-height:430px}
+  .torre{min-height:360px;gap:4px}
+  .contador{min-height:92px}
+}
+@media (max-width:430px){
+  .paleta{gap:8px}
+  .cor{min-height:50px;padding:0 4px}
+  .acoes{grid-template-columns:1fr}
+  .btn{width:100%}
+  .area{min-height:390px}
+  .mesa{padding:10px}
+  .torre{width:100%;min-height:330px;gap:3px}
+  .coluna{gap:2px;padding:2px;border-radius:10px;border-width:2px}
+  .bloco,.slot{border-radius:7px;border-width:2px}
+}
+</style>
+</head>
+<body>
+  <main class="app">
+    <header class="topo">
+      <img class="capa" src="capa-guga.jpg" alt="Guga e Papai">
+      <div>
+        <h1 class="titulo">Empilhar <span>blocos</span></h1>
+        <p class="subtitulo">Monte uma matriz de at&eacute; 10 por 10.</p>
+      </div>
+      <button class="btn btn-azul" id="novo" type="button">Novo jogo</button>
+    </header>
+
+    <section class="jogo" aria-label="Jogo de empilhar e colorir blocos">
+      <aside class="painel controles">
+        <div class="mensagem" id="mensagem" aria-live="polite">Vamos come&ccedil;ar!</div>
+
+        <div class="contador" aria-label="Contador de blocos">
+          <div class="numero-box">
+            <span class="rotulo">Blocos</span>
+            <span class="numero" id="total">0</span>
+          </div>
+          <div class="numero-box">
+            <span class="rotulo">Faltam</span>
+            <span class="numero verde" id="faltam">100</span>
+          </div>
+        </div>
+
+        <p class="texto-guia">Toque numa cor. Toque numa coluna. Depois coloque blocos para cima, at&eacute; 10.</p>
+
+        <div class="paleta" aria-label="Escolher cor">
+          <button class="cor" type="button" data-cor="#2F7FC0" style="background:#2F7FC0" aria-pressed="true">Azul</button>
+          <button class="cor" type="button" data-cor="#4A9B6F" style="background:#4A9B6F" aria-pressed="false">Verde</button>
+          <button class="cor" type="button" data-cor="#D4733A" style="background:#D4733A" aria-pressed="false">Laranja</button>
+          <button class="cor" type="button" data-cor="#C84040" style="background:#C84040" aria-pressed="false">Vermelho</button>
+          <button class="cor" type="button" data-cor="#7C5AC7" style="background:#7C5AC7" aria-pressed="false">Roxo</button>
+          <button class="cor" type="button" data-cor="#D963A5" style="background:#D963A5" aria-pressed="false">Rosa</button>
+        </div>
+
+        <div class="acoes">
+          <button class="btn btn-laranja" id="desfazer" type="button" disabled>Desfazer</button>
+          <button class="btn btn-azul" id="limpar" type="button">Limpar</button>
+        </div>
+      </aside>
+
+      <section class="painel area">
+        <div class="mesa" aria-label="Colunas de blocos">
+          <div class="torre" id="torre">
+          </div>
+        </div>
+        <button class="botao-bloco" id="adicionar" type="button">Adicionar bloco</button>
+      </section>
+    </section>
+  </main>
+
+<script>
+const MAX_COLUNAS = 10;
+const MAX_ALTURA = 10;
+const MAX_BLOCOS = MAX_COLUNAS * MAX_ALTURA;
+const estado = {
+  corAtual: '#2F7FC0',
+  colunaAtual: 0,
+  colunas: Array.from({ length: MAX_COLUNAS }, () => []),
+  historico: []
+};
+
+const torre = document.getElementById('torre');
+const total = document.getElementById('total');
+const faltam = document.getElementById('faltam');
+const mensagem = document.getElementById('mensagem');
+const adicionar = document.getElementById('adicionar');
+const desfazer = document.getElementById('desfazer');
+const botoesCor = Array.from(document.querySelectorAll('.cor'));
+
+function atualizarMensagem(texto){
+  mensagem.textContent = texto;
+}
+
+function totalBlocos(){
+  return estado.colunas.reduce((soma, coluna) => soma + coluna.length, 0);
+}
+
+function colunaCheia(indice){
+  return estado.colunas[indice].length >= MAX_ALTURA;
+}
+
+function selecionarColuna(indice){
+  estado.colunaAtual = indice;
+  atualizarMensagem(`Coluna ${indice + 1}.`);
+  atualizarTela();
+}
+
+function atualizarTela(){
+  const totalAtual = totalBlocos();
+  total.textContent = totalAtual;
+  faltam.textContent = MAX_BLOCOS - totalAtual;
+  desfazer.disabled = estado.historico.length === 0;
+  adicionar.disabled = totalAtual >= MAX_BLOCOS || colunaCheia(estado.colunaAtual);
+  if (totalAtual >= MAX_BLOCOS) {
+    adicionar.textContent = 'Matriz completa!';
+  } else if (colunaCheia(estado.colunaAtual)) {
+    adicionar.textContent = 'Escolha outra coluna';
+  } else {
+    adicionar.textContent = `Adicionar na coluna ${estado.colunaAtual + 1}`;
+  }
+
+  torre.innerHTML = '';
+  for (let indice = 0; indice < MAX_COLUNAS; indice += 1) {
+    const coluna = document.createElement('div');
+    coluna.className = indice === estado.colunaAtual ? 'coluna ativa' : 'coluna';
+    coluna.setAttribute('aria-label', `Coluna ${indice + 1}`);
+    coluna.addEventListener('click', () => selecionarColuna(indice));
+
+    for (let linha = MAX_ALTURA - 1; linha >= 0; linha -= 1) {
+      const cor = estado.colunas[indice][linha];
+
+      if (cor) {
+        const bloco = document.createElement('button');
+        bloco.className = 'bloco';
+        bloco.type = 'button';
+        bloco.style.background = cor;
+        bloco.textContent = linha + 1;
+        bloco.setAttribute('aria-label', `Coluna ${indice + 1}, bloco ${linha + 1}`);
+        bloco.addEventListener('click', event => {
+          event.stopPropagation();
+          estado.colunaAtual = indice;
+          estado.colunas[indice][linha] = estado.corAtual;
+          atualizarMensagem('Muito bem!');
+          atualizarTela();
+        });
+        coluna.appendChild(bloco);
+      } else {
+        const slot = document.createElement('button');
+        slot.className = 'slot';
+        slot.type = 'button';
+        slot.textContent = linha + 1;
+        slot.setAttribute('aria-label', `Coluna ${indice + 1}, espaço ${linha + 1}`);
+        slot.disabled = linha !== estado.colunas[indice].length;
+        slot.addEventListener('click', event => {
+          event.stopPropagation();
+          estado.colunaAtual = indice;
+          adicionarBloco();
+        });
+        coluna.appendChild(slot);
+      }
+    }
+
+    torre.appendChild(coluna);
+  }
+}
+
+function adicionarBloco(){
+  const totalAtual = totalBlocos();
+  if (totalAtual >= MAX_BLOCOS) {
+    atualizarMensagem('Muito bem! Matriz completa!');
+    return;
+  }
+
+  if (colunaCheia(estado.colunaAtual)) {
+    atualizarMensagem('Essa coluna já tem 10.');
+    return;
+  }
+
+  estado.colunas[estado.colunaAtual].push(estado.corAtual);
+  estado.historico.push(estado.colunaAtual);
+  if (totalAtual + 1 === MAX_BLOCOS) {
+    atualizarMensagem('Muito bem! Matriz 10 por 10 completa!');
+  } else {
+    atualizarMensagem('Muito bem!');
+  }
+  atualizarTela();
+}
+
+function selecionarCor(botao){
+  estado.corAtual = botao.dataset.cor;
+  botoesCor.forEach(item => item.setAttribute('aria-pressed', String(item === botao)));
+  atualizarMensagem(`Cor ${botao.textContent}.`);
+}
+
+botoesCor.forEach(botao => {
+  botao.addEventListener('click', () => selecionarCor(botao));
+});
+
+adicionar.addEventListener('click', adicionarBloco);
+
+desfazer.addEventListener('click', () => {
+  const ultimaColuna = estado.historico.pop();
+  if (ultimaColuna !== undefined) {
+    estado.colunas[ultimaColuna].pop();
+    estado.colunaAtual = ultimaColuna;
+  }
+  atualizarMensagem('Tudo bem. Vamos de novo.');
+  atualizarTela();
+});
+
+document.getElementById('limpar').addEventListener('click', () => {
+  estado.colunas = Array.from({ length: MAX_COLUNAS }, () => []);
+  estado.historico = [];
+  estado.colunaAtual = 0;
+  atualizarMensagem('Vamos começar!');
+  atualizarTela();
+});
+
+document.getElementById('novo').addEventListener('click', () => {
+  estado.colunas = Array.from({ length: MAX_COLUNAS }, () => []);
+  estado.historico = [];
+  estado.colunaAtual = 0;
+  atualizarMensagem('Vamos começar!');
+  atualizarTela();
+});
+
+atualizarTela();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js'));
+}
+</script>
+</body>
+</html>
