@@ -24,9 +24,10 @@
   --verde:#4A9B6F;
   --vermelho:#C84040;
   --laranja:#D4733A;
+  --roxo:#7C5AC7;
+  --rosa:#D963A5;
   --texto:#2A1A0A;
   --cinza:#8A7A6A;
-  --roxo:#7A5AB8;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{
@@ -133,6 +134,7 @@ body::before{
 .soma .icone{background:var(--azul)}
 .comp .icone{background:var(--roxo)}
 .mult .icone{background:var(--verde)}
+.blocos .icone{background:var(--rosa)}
 .nome{
   font-family:'Baloo 2',cursive;
   font-size:clamp(24px,6vw,34px);
@@ -200,6 +202,14 @@ body::before{
         <div>
           <h2 class="nome">Vamos somar</h2>
           <p class="desc">Some unidades, forme uma dezena e veja o vai um acontecer.</p>
+        </div>
+      </a>
+
+      <a class="card blocos" href="empilhar-colorir-blocos.html">
+        <div class="icone">10</div>
+        <div>
+          <h2 class="nome">Empilhar blocos</h2>
+          <p class="desc">Escolha a cor e monte uma matriz de blocos 10 por 10.</p>
         </div>
       </a>
 
