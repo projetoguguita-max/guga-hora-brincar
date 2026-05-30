@@ -24,8 +24,9 @@
   --verde-claro:#67B984;
   --vermelho:#C84040;
   --laranja:#D4733A;
-  --roxo:#7C5AC7;
   --amarelo:#F2C94C;
+  --anil:#3752A3;
+  --roxo:#7C5AC7;
   --rosa:#D963A5;
 }
 *{box-sizing:border-box}
@@ -176,17 +177,22 @@ button:disabled{
 }
 .paleta{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
 }
 .cor{
-  min-height:60px;
-  border-radius:17px;
+  min-height:54px;
+  border-radius:16px;
   border:4px solid #fff;
   box-shadow:0 6px 0 rgba(87,63,36,.28),0 9px 18px rgba(94,65,34,.12);
   color:#fff;
   text-shadow:0 2px 0 rgba(0,0,0,.18);
-  font-size:17px;
+  font-size:16px;
+}
+.cor-clara{
+  color:var(--marrom);
+  text-shadow:none;
+  border-color:var(--bege-esc);
 }
 .cor[aria-pressed="true"]{
   outline:4px solid var(--marrom);
@@ -289,15 +295,15 @@ button:disabled{
   .capa{width:64px;height:64px;border-radius:16px}
   .jogo{grid-template-columns:1fr;grid-template-rows:auto 1fr}
   .controles{grid-template-rows:auto auto auto auto auto}
-  .paleta{grid-template-columns:repeat(3,1fr)}
-  .cor{min-height:54px;font-size:15px}
+  .paleta{grid-template-columns:repeat(5,1fr)}
+  .cor{min-height:54px;font-size:14px}
   .area{min-height:430px}
   .torre{min-height:360px;gap:4px}
   .contador{min-height:92px}
 }
 @media (max-width:430px){
-  .paleta{gap:8px}
-  .cor{min-height:50px;padding:0 4px}
+  .paleta{grid-template-columns:repeat(5,1fr);gap:7px}
+  .cor{min-height:48px;padding:0 3px;font-size:12px}
   .acoes{grid-template-columns:1fr}
   .btn{width:100%}
   .area{min-height:390px}
@@ -337,12 +343,16 @@ button:disabled{
         <p class="texto-guia">Toque numa cor. Toque numa coluna. Depois coloque blocos para cima, at&eacute; 10.</p>
 
         <div class="paleta" aria-label="Escolher cor">
-          <button class="cor" type="button" data-cor="#2F7FC0" style="background:#2F7FC0" aria-pressed="true">Azul</button>
-          <button class="cor" type="button" data-cor="#4A9B6F" style="background:#4A9B6F" aria-pressed="false">Verde</button>
+          <button class="cor" type="button" data-cor="#C84040" style="background:#C84040" aria-pressed="true">Vermelho</button>
           <button class="cor" type="button" data-cor="#D4733A" style="background:#D4733A" aria-pressed="false">Laranja</button>
-          <button class="cor" type="button" data-cor="#C84040" style="background:#C84040" aria-pressed="false">Vermelho</button>
-          <button class="cor" type="button" data-cor="#7C5AC7" style="background:#7C5AC7" aria-pressed="false">Roxo</button>
+          <button class="cor cor-clara" type="button" data-cor="#F2C94C" style="background:#F2C94C" aria-pressed="false">Amarelo</button>
+          <button class="cor" type="button" data-cor="#4A9B6F" style="background:#4A9B6F" aria-pressed="false">Verde</button>
+          <button class="cor" type="button" data-cor="#2F7FC0" style="background:#2F7FC0" aria-pressed="false">Azul</button>
+          <button class="cor" type="button" data-cor="#3752A3" style="background:#3752A3" aria-pressed="false">Anil</button>
+          <button class="cor" type="button" data-cor="#7C5AC7" style="background:#7C5AC7" aria-pressed="false">Violeta</button>
           <button class="cor" type="button" data-cor="#D963A5" style="background:#D963A5" aria-pressed="false">Rosa</button>
+          <button class="cor cor-clara" type="button" data-cor="#FFFFFF" style="background:#FFFFFF" aria-pressed="false">Branco</button>
+          <button class="cor" type="button" data-cor="#202020" style="background:#202020" aria-pressed="false">Preto</button>
         </div>
 
         <div class="acoes">
@@ -366,7 +376,7 @@ const MAX_COLUNAS = 10;
 const MAX_ALTURA = 10;
 const MAX_BLOCOS = MAX_COLUNAS * MAX_ALTURA;
 const estado = {
-  corAtual: '#2F7FC0',
+  corAtual: '#C84040',
   colunaAtual: 0,
   colunas: Array.from({ length: MAX_COLUNAS }, () => []),
   historico: []
