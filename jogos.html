@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#F5EDD8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Guga e Papai">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="capa-guga.jpg">
+<title>Guga e Papai - Jogos e Calculadoras</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@600;700;800;900&display=swap');
+:root{
+  --creme:#F5EDD8;
+  --branco:#FFFDF8;
+  --bege:#E8D9B8;
+  --bege-esc:#C8B890;
+  --marrom:#8B5E3C;
+  --marrom-cl:#C4895A;
+  --azul:#2F7FC0;
+  --azul-cl:#5BA8E0;
+  --azul-esc:#1A5A90;
+  --verde:#4A9B6F;
+  --vermelho:#C84040;
+  --laranja:#D4733A;
+  --roxo:#7C5AC7;
+  --rosa:#D963A5;
+  --texto:#2A1A0A;
+  --cinza:#8A7A6A;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{
+  min-height:100vh;
+  font-family:'Nunito',sans-serif;
+  background:var(--creme);
+  color:var(--texto);
+  padding:22px 14px;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(ellipse at 15% 8%,rgba(196,137,90,.14),transparent 48%),
+    radial-gradient(ellipse at 85% 92%,rgba(47,127,192,.10),transparent 50%);
+  pointer-events:none;
+}
+.wrap{
+  position:relative;
+  z-index:1;
+  width:min(760px,100%);
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.topo{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  background:var(--branco);
+  border:3px solid var(--bege-esc);
+  border-radius:22px;
+  padding:14px;
+  box-shadow:0 6px 0 var(--bege-esc),0 12px 24px rgba(139,94,60,.12);
+}
+.capa{
+  width:92px;
+  height:92px;
+  border-radius:18px;
+  object-fit:cover;
+  border:3px solid var(--bege);
+  flex:0 0 auto;
+}
+.titulo{
+  font-family:'Baloo 2',cursive;
+  font-size:clamp(32px,8vw,54px);
+  line-height:.95;
+  font-weight:900;
+  color:var(--marrom);
+}
+.titulo span{color:var(--azul)}
+.sub{
+  margin-top:6px;
+  color:var(--cinza);
+  font-size:clamp(16px,4vw,20px);
+  font-weight:800;
+  line-height:1.25;
+}
+.grade{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+.card{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-height:108px;
+  padding:15px;
+  text-decoration:none;
+  color:inherit;
+  background:var(--branco);
+  border:3px solid var(--bege-esc);
+  border-radius:20px;
+  box-shadow:0 6px 0 var(--bege-esc),0 9px 20px rgba(0,0,0,.07);
+  transition:transform .1s,box-shadow .1s;
+}
+.card:active{
+  transform:translateY(5px);
+  box-shadow:0 1px 0 var(--bege-esc),0 5px 12px rgba(0,0,0,.06);
+}
+.icone{
+  width:68px;
+  height:68px;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  flex:0 0 auto;
+  color:#fff;
+  font-family:'Baloo 2',cursive;
+  font-size:34px;
+  font-weight:900;
+  box-shadow:inset 0 -5px 0 rgba(0,0,0,.12);
+}
+.principal{
+  border-color:var(--azul-cl);
+  box-shadow:0 6px 0 var(--azul-cl),0 9px 20px rgba(47,127,192,.13);
+}
+.principal .icone{background:var(--azul)}
+.tirar .icone{background:var(--vermelho)}
+.tirar-v2 .icone{background:var(--laranja)}
+.soma .icone{background:var(--azul)}
+.comp .icone{background:var(--roxo)}
+.mult .icone{background:var(--verde)}
+.blocos .icone{background:var(--rosa)}
+.nome{
+  font-family:'Baloo 2',cursive;
+  font-size:clamp(24px,6vw,34px);
+  line-height:1.05;
+  font-weight:900;
+  color:var(--marrom);
+}
+.desc{
+  margin-top:4px;
+  font-size:clamp(14px,3.8vw,17px);
+  line-height:1.25;
+  font-weight:800;
+  color:var(--cinza);
+}
+.selo{
+  display:inline-block;
+  margin-bottom:6px;
+  padding:2px 10px;
+  border-radius:999px;
+  background:rgba(47,127,192,.12);
+  color:var(--azul-esc);
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+@media (max-width:520px){
+  body{padding:14px 10px}
+  .topo{align-items:flex-start;border-radius:18px}
+  .capa{width:78px;height:78px}
+  .card{border-radius:18px;padding:13px;gap:12px}
+  .icone{width:58px;height:58px;border-radius:15px;font-size:29px}
+}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="topo">
+      <img class="capa" src="capa-guga.jpg" alt="Guga e Papai">
+      <div>
+        <h1 class="titulo">Hora de <span>brincar</span></h1>
+        <p class="sub">Escolha o jogo ou uma calculadora.</p>
+      </div>
+    </header>
+
+    <section class="grade" aria-label="Jogos e calculadoras">
+      <a class="card principal" href="hora_brincar.html">
+        <div class="icone">1</div>
+        <div>
+          <span class="selo">Primeira opção</span>
+          <h2 class="nome">Guga e Papai - Hora de Brincar!</h2>
+          <p class="desc">O jogo principal com desafios, carinho e comemoração.</p>
+        </div>
+      </a>
+
+      <a class="card tirar-v2" href="calculadora-vamos-tirar-v2.html">
+        <div class="icone">-</div>
+        <div>
+          <h2 class="nome">Vamos subtrair</h2>
+          <p class="desc">Mais desafio, bolinhas numeradas e contas até 100.</p>
+        </div>
+      </a>
+
+      <a class="card soma" href="soma-vai-um.html">
+        <div class="icone">+</div>
+        <div>
+          <h2 class="nome">Vamos somar</h2>
+          <p class="desc">Some unidades, forme uma dezena e veja o vai um acontecer.</p>
+        </div>
+      </a>
+
+      <a class="card blocos" href="empilhar-colorir-blocos.html?v=20260530-1143">
+        <div class="icone">10</div>
+        <div>
+          <h2 class="nome">Empilhar blocos</h2>
+          <p class="desc">Escolha a cor e monte uma matriz de blocos 10 por 10.</p>
+        </div>
+      </a>
+
+      <a class="card comp" href="monstrinho-comparacao.html">
+        <div class="icone">&gt;</div>
+        <div>
+          <h2 class="nome">Monstrinho da comparação</h2>
+          <p class="desc">Escolha números até 100 e toque no sinal certo.</p>
+        </div>
+      </a>
+
+      <a class="card mult" href="calculadora-vamos-multiplicar.html">
+        <div class="icone">x</div>
+        <div>
+          <h2 class="nome">Vamos multiplicar</h2>
+          <p class="desc">Monte grupos de bolinhas até completar a conta.</p>
+        </div>
+      </a>
+    </section>
+  </main>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js'));
+}
+</script>
+</body>
+</html>
