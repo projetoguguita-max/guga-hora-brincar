@@ -1,4 +1,4 @@
-const CACHE_NAME = 'guga-hora-brincar-v9';
+const CACHE_NAME = 'guga-hora-brincar-v10';
 const ASSETS = [
   './',
   './index.html',
@@ -9,6 +9,8 @@ const ASSETS = [
   './empilhar-colorir-blocos.html',
   './calculadora-vamos-multiplicar.html',
   './monstrinho-comparacao.html',
+  './Maior.mp4',
+  './Menor.mp4',
   './capa-guga.jpg',
   './manifest.json'
 ];
