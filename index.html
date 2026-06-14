@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 <meta name="theme-color" content="#F5EDD8">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Guga e Papai">
+<meta name="apple-mobile-web-app-title" content="Projeto Guguita">
+<meta name="description" content="Projeto Guguita: vídeos, joguinhos e redes sociais.">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="capa-guga.jpg">
-<title>Guga e Papai - Jogos e Calculadoras</title>
+<title>Projeto Guguita</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@600;700;800;900&display=swap');
 :root{
@@ -17,15 +18,14 @@
   --bege:#E8D9B8;
   --bege-esc:#C8B890;
   --marrom:#8B5E3C;
-  --marrom-cl:#C4895A;
   --azul:#2F7FC0;
   --azul-cl:#5BA8E0;
   --azul-esc:#1A5A90;
   --verde:#4A9B6F;
   --vermelho:#C84040;
   --laranja:#D4733A;
-  --roxo:#7C5AC7;
   --rosa:#D963A5;
+  --roxo:#7C5AC7;
   --texto:#2A1A0A;
   --cinza:#8A7A6A;
 }
@@ -49,10 +49,12 @@ body::before{
 .wrap{
   position:relative;
   z-index:1;
-  width:min(760px,100%);
+  width:min(640px,100%);
+  min-height:calc(100vh - 44px);
   margin:0 auto;
   display:flex;
   flex-direction:column;
+  justify-content:center;
   gap:18px;
 }
 .topo{
@@ -66,17 +68,17 @@ body::before{
   box-shadow:0 6px 0 var(--bege-esc),0 12px 24px rgba(139,94,60,.12);
 }
 .capa{
-  width:92px;
-  height:92px;
-  border-radius:18px;
+  width:98px;
+  height:98px;
+  border-radius:20px;
   object-fit:cover;
   border:3px solid var(--bege);
   flex:0 0 auto;
 }
 .titulo{
   font-family:'Baloo 2',cursive;
-  font-size:clamp(32px,8vw,54px);
-  line-height:.95;
+  font-size:clamp(34px,9vw,58px);
+  line-height:.92;
   font-weight:900;
   color:var(--marrom);
 }
@@ -88,147 +90,121 @@ body::before{
   font-weight:800;
   line-height:1.25;
 }
-.grade{
+.links{
   display:grid;
-  grid-template-columns:1fr;
-  gap:14px;
+  gap:13px;
 }
-.card{
+.link{
   display:flex;
   align-items:center;
   gap:14px;
-  min-height:108px;
-  padding:15px;
-  text-decoration:none;
+  min-height:92px;
+  padding:14px;
   color:inherit;
+  text-decoration:none;
   background:var(--branco);
   border:3px solid var(--bege-esc);
   border-radius:20px;
   box-shadow:0 6px 0 var(--bege-esc),0 9px 20px rgba(0,0,0,.07);
   transition:transform .1s,box-shadow .1s;
 }
-.card:active{
+.link:active{
   transform:translateY(5px);
   box-shadow:0 1px 0 var(--bege-esc),0 5px 12px rgba(0,0,0,.06);
 }
 .icone{
-  width:68px;
-  height:68px;
+  width:64px;
+  height:64px;
   border-radius:18px;
   display:grid;
   place-items:center;
   flex:0 0 auto;
   color:#fff;
   font-family:'Baloo 2',cursive;
-  font-size:34px;
+  font-size:28px;
   font-weight:900;
   box-shadow:inset 0 -5px 0 rgba(0,0,0,.12);
 }
-.principal{
-  border-color:var(--azul-cl);
-  box-shadow:0 6px 0 var(--azul-cl),0 9px 20px rgba(47,127,192,.13);
-}
-.principal .icone{background:var(--azul)}
-.tirar .icone{background:var(--vermelho)}
-.tirar-v2 .icone{background:var(--laranja)}
-.soma .icone{background:var(--azul)}
-.comp .icone{background:var(--roxo)}
-.mult .icone{background:var(--verde)}
-.blocos .icone{background:var(--rosa)}
+.jogos{border-color:var(--azul-cl);box-shadow:0 6px 0 var(--azul-cl),0 9px 20px rgba(47,127,192,.13)}
+.jogos .icone{background:var(--azul)}
+.youtube .icone{background:var(--vermelho)}
+.instagram .icone{background:var(--rosa)}
+.tiktok .icone{background:#202020}
 .nome{
   font-family:'Baloo 2',cursive;
   font-size:clamp(24px,6vw,34px);
-  line-height:1.05;
+  line-height:1.02;
   font-weight:900;
   color:var(--marrom);
 }
 .desc{
-  margin-top:4px;
+  margin-top:3px;
   font-size:clamp(14px,3.8vw,17px);
   line-height:1.25;
   font-weight:800;
   color:var(--cinza);
 }
-.selo{
-  display:inline-block;
-  margin-bottom:6px;
-  padding:2px 10px;
-  border-radius:999px;
-  background:rgba(47,127,192,.12);
-  color:var(--azul-esc);
-  font-size:12px;
-  font-weight:900;
-  text-transform:uppercase;
+.rodape{
+  text-align:center;
+  color:var(--cinza);
+  font-size:14px;
+  font-weight:800;
 }
 @media (max-width:520px){
   body{padding:14px 10px}
+  .wrap{justify-content:flex-start;min-height:auto}
   .topo{align-items:flex-start;border-radius:18px}
-  .capa{width:78px;height:78px}
-  .card{border-radius:18px;padding:13px;gap:12px}
-  .icone{width:58px;height:58px;border-radius:15px;font-size:29px}
+  .capa{width:78px;height:78px;border-radius:16px}
+  .link{min-height:84px;border-radius:18px;padding:13px;gap:12px}
+  .icone{width:58px;height:58px;border-radius:15px;font-size:25px}
 }
 </style>
 </head>
 <body>
   <main class="wrap">
     <header class="topo">
-      <img class="capa" src="capa-guga.jpg" alt="Guga e Papai">
+      <img class="capa" src="capa-guga.jpg" alt="Projeto Guguita">
       <div>
-        <h1 class="titulo">Hora de <span>brincar</span></h1>
-        <p class="sub">Escolha o jogo ou uma calculadora.</p>
+        <h1 class="titulo">Projeto <span>Guguita</span></h1>
+        <p class="sub">Vídeos, joguinhos e ideias para aprender brincando.</p>
       </div>
     </header>
 
-    <section class="grade" aria-label="Jogos e calculadoras">
-      <a class="card principal" href="hora_brincar.html">
-        <div class="icone">1</div>
+    <section class="links" aria-label="Links do Projeto Guguita">
+      <a class="link jogos" href="jogos.html">
+        <div class="icone">J</div>
         <div>
-          <span class="selo">Primeira opção</span>
-          <h2 class="nome">Guga e Papai - Hora de Brincar!</h2>
-          <p class="desc">O jogo principal com desafios, carinho e comemoração.</p>
+          <h2 class="nome">Joguinhos</h2>
+          <p class="desc">Acesse todos os jogos e calculadoras.</p>
         </div>
       </a>
 
-      <a class="card tirar-v2" href="calculadora-vamos-tirar-v2.html">
-        <div class="icone">-</div>
+      <a class="link youtube" href="https://www.youtube.com/@ProjetoGuguita" target="_blank" rel="noopener">
+        <div class="icone">YT</div>
         <div>
-          <h2 class="nome">Vamos subtrair</h2>
-          <p class="desc">Mais desafio, bolinhas numeradas e contas até 100.</p>
+          <h2 class="nome">YouTube</h2>
+          <p class="desc">Assista aos vídeos do Projeto Guguita.</p>
         </div>
       </a>
 
-      <a class="card soma" href="soma-vai-um.html">
-        <div class="icone">+</div>
+      <a class="link instagram" href="https://www.instagram.com/projetoguguita/" target="_blank" rel="noopener">
+        <div class="icone">IG</div>
         <div>
-          <h2 class="nome">Vamos somar</h2>
-          <p class="desc">Some unidades, forme uma dezena e veja o vai um acontecer.</p>
+          <h2 class="nome">Instagram</h2>
+          <p class="desc">Acompanhe novidades e bastidores.</p>
         </div>
       </a>
 
-      <a class="card blocos" href="empilhar-colorir-blocos.html?v=20260530-1143">
-        <div class="icone">10</div>
+      <a class="link tiktok" href="https://www.tiktok.com/@projetoguguita" target="_blank" rel="noopener">
+        <div class="icone">TT</div>
         <div>
-          <h2 class="nome">Empilhar blocos</h2>
-          <p class="desc">Escolha a cor e monte uma matriz de blocos 10 por 10.</p>
-        </div>
-      </a>
-
-      <a class="card comp" href="monstrinho-comparacao.html">
-        <div class="icone">&gt;</div>
-        <div>
-          <h2 class="nome">Monstrinho da comparação</h2>
-          <p class="desc">Escolha números até 100 e toque no sinal certo.</p>
-        </div>
-      </a>
-
-      <a class="card mult" href="calculadora-vamos-multiplicar.html">
-        <div class="icone">x</div>
-        <div>
-          <h2 class="nome">Vamos multiplicar</h2>
-          <p class="desc">Monte grupos de bolinhas até completar a conta.</p>
+          <h2 class="nome">TikTok</h2>
+          <p class="desc">Vídeos curtos do projeto.</p>
         </div>
       </a>
     </section>
+
+    <p class="rodape">@projetoguguita</p>
   </main>
 <script>
 if ('serviceWorker' in navigator) {
