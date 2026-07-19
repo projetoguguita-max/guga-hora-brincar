@@ -3,7 +3,7 @@
  * Atualizar CACHE_VERSION a cada deploy para limpar o cache anterior.
  */
 
-const CACHE_VERSION = 'guguita-v3';
+const CACHE_VERSION = 'guguita-v4';
 const CACHE_ASSETS = [
   '/',
   '/index.html',
@@ -15,6 +15,7 @@ const CACHE_ASSETS = [
   '/assets/video/muito_bem.mp4',
   '/assets/video/Maior.mp4',
   '/assets/video/Menor.mp4',
+  '/jogos/hora_brincar.html',
   '/jogos/aventura-guga-fase1.html',
   '/jogos/calculadora-vamos-multiplicar.html',
   '/jogos/calculadora-vamos-tirar-v2.html',
