@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -267,7 +267,7 @@ button:active,.pressionado{transform:translateY(4px)}
 <body>
 <main>
   <header class="topo">
-    <img class="capa" src="capa-guga.jpg" alt="Guga e Papai">
+    <img class="capa" src="../assets/img/capa-guga.jpg" alt="Guga e Papai">
     <div>
       <h1 class="titulo">Aventura do <span>Guga</span></h1>
       <p class="sub">Pegue as estrelas, chegue na porta e responda uma continha.</p>
@@ -313,7 +313,7 @@ button:active,.pressionado{transform:translateY(4px)}
   <section class="painel comemoracao">
     <h2 id="tituloVideo">Muito bem!</h2>
     <div class="video-box">
-      <video id="videoMuitoBem" src="muito_bem.mp4" preload="auto" playsinline controls></video>
+      <video id="videoMuitoBem" src="../assets/video/muito_bem.mp4" preload="auto" playsinline controls></video>
     </div>
     <button class="btn-novo" id="jogarDepoisVideo">Próxima fase</button>
   </section>
@@ -1119,7 +1119,7 @@ requestAnimationFrame(ciclo);
 </script>
 <script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js'));
+  window.addEventListener('load', () => navigator.serviceWorker.register('../service-worker.js'));
 }
 </script>
 </body>

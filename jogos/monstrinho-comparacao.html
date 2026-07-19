@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#F5EDD8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Guga e Papai">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="capa-guga.jpg">
+<link rel="manifest" href="../manifest.json">
+<link rel="apple-touch-icon" href="../assets/img/capa-guga.jpg">
 <title>Monstrinho da Comparacao</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@600;700;800;900&display=swap');
@@ -423,7 +423,7 @@ button:active{transform:translateY(3px)}
 <body>
 <main>
   <section class="topo">
-    <img class="capa" src="capa-guga.jpg" alt="Guga">
+    <img class="capa" src="../assets/img/capa-guga.jpg" alt="Guga">
     <div>
       <h1 class="titulo">Monstrinho da <span>comparacao</span></h1>
       <p class="sub">Escolha numeros ate 100 e toque no sinal certo.</p>
@@ -674,7 +674,7 @@ montar();
 </script>
 <script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js'));
+  window.addEventListener('load', () => navigator.serviceWorker.register('../service-worker.js'));
 }
 </script>
 </body>
