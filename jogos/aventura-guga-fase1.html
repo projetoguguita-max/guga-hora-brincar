@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -1045,6 +1045,7 @@ function abrirVideoMuitoBem(){
   modal.classList.remove('ativo');
   modalVideo.classList.add('ativo');
   videoMuitoBem.currentTime = 0;
+  gtag('event','jogo_concluido',{jogo_nome:'aventura-guga',jogo_categoria:'aventura',jogo_fase:'Fase '+(faseAtual+1)});
   const tocando = videoMuitoBem.play();
   if(tocando && typeof tocando.catch === 'function'){
     tocando.catch(() => {

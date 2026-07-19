@@ -434,6 +434,7 @@ function mostrarResultado(){
   contaFinalEl.textContent=`${porGrupo} x ${vezes} = ${porGrupo*vezes}`;
   resultadoEl.classList.add('ativo');
   resultadoEl.scrollIntoView({behavior:'smooth',block:'nearest'});
+  gtag('event','jogo_concluido',{jogo_nome:'calculadora-multiplicar',jogo_categoria:'matematica'});
 }
 
 function novaConta(){

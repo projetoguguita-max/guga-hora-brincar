@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -655,6 +655,7 @@ function responder(resposta){
     tituloResultadoEl.textContent='Muito bem!';
     textoResultadoEl.textContent=frase(resposta);
     resultadoEl.classList.add('ativo');
+    gtag('event','jogo_concluido',{jogo_nome:'monstrinho-comparacao',jogo_categoria:'matematica'});
   }else{
     monstroEl.classList.remove('menor','maior','igual');
     esconderVideo();

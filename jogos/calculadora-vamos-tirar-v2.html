@@ -369,6 +369,7 @@ function tirarBola(bola){
     guiaEl.innerHTML=`Sobraram <strong style="color:var(--verde-esc)">${atual}</strong> bolinha${atual===1?'':'s'}.`;
     contaFinalEl.textContent=`${base} - ${tirar} = ${atual}`;
     setTimeout(()=>resultadoEl.classList.add('ativo'),260);
+    gtag('event','jogo_concluido',{jogo_nome:'calculadora-tirar',jogo_categoria:'matematica'});
   }
 }
 

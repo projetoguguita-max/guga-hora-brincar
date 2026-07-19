@@ -492,6 +492,7 @@ function adicionarBloco(){
   estado.historico.push(estado.colunaAtual);
   if (totalAtual + 1 === MAX_BLOCOS) {
     atualizarMensagem('Muito bem! Matriz 10 por 10 completa!');
+    gtag('event','jogo_concluido',{jogo_nome:'empilhar-colorir-blocos',jogo_categoria:'cores'});
   } else {
     atualizarMensagem('Muito bem!');
   }

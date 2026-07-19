@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -739,6 +739,7 @@ function finalizarDezenas(){
   el.mensagem.innerHTML = "A conta ficou <strong>pronta</strong>.";
   el.feedback.className = "feedback";
   el.feedback.textContent = `Muito bem! ${conta.a} + ${conta.b} = ${conta.a + conta.b}.`;
+  gtag('event','jogo_concluido',{jogo_nome:'soma-vai-um',jogo_categoria:'matematica'});
 }
 
 el.btnUnidade.addEventListener("click", () => colocarUnidade());
