@@ -1,4 +1,4 @@
-# Arquitetura Técnica — Projeto Guguita
+﻿# Arquitetura Técnica — Projeto Guguita
 
 ## Stack
 
@@ -7,7 +7,7 @@
 | **Linguagem** | HTML + CSS + JavaScript puro | Sem dependências, funciona offline, zero build |
 | **Hospedagem** | GitHub Pages | Gratuito, integrado ao repositório |
 | **Domínio** | `www.projetoguguita.com.br` (CNAME) | Identidade do projeto |
-| **Analytics** | Google Analytics 4 (`G-357V6NBRQ1`) | Rastreio anônimo de acessos |
+| **Analytics** | Google Analytics 4 (`G-357V6N6RQ1`) | Rastreio anônimo de acessos |
 | **Offline** | PWA (manifest.json + service-worker.js) | Funciona sem internet |
 | **Repositório** | github.com/projetoguguita-max/guga-hora-brincar | Conta dedicada ao projeto |
 
@@ -70,18 +70,18 @@ Como os jogos ficam em `jogos/`, os caminhos mudam:
 
 ## Google Analytics 4
 
-**Measurement ID:** `G-357V6NBRQ1`
+**Measurement ID:** `G-357V6N6RQ1`
 
 Snippet obrigatório em **todas** as páginas (no `<head>`, antes de fechar):
 
 ```html
 <!-- Google Analytics 4 — Projeto Guguita -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-357V6NBRQ1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-357V6N6RQ1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-357V6NBRQ1');
+  gtag('config', 'G-357V6N6RQ1');
 </script>
 ```
 

@@ -1,4 +1,4 @@
-# Projeto Guguita — Contexto e Identidade
+﻿# Projeto Guguita — Contexto e Identidade
 
 ## Quem é o Gustavo?
 
@@ -83,7 +83,7 @@ Ver `assets/css/base.css` para implementação de:
 
 - **Ferramenta:** Google Analytics 4
 - **Conta:** projetoguguita (Google)
-- **Measurement ID:** `G-357V6NBRQ1`
+- **Measurement ID:** `G-357V6N6RQ1`
 - **Domínio:** `www.projetoguguita.com.br`
 - **Eventos personalizados:** `jogo_concluido` (disparado ao completar cada jogo)
 
