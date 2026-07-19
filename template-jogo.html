@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#F5EDD8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="[DESCRIÇÃO DO JOGO] — Projeto Guguita">
+<link rel="manifest" href="../manifest.json">
+<link rel="apple-touch-icon" href="../assets/img/capa-guga.jpg">
+<link rel="stylesheet" href="../assets/css/base.css">
+<title>[NOME DO JOGO] — Projeto Guguita</title>
+<style>
+/*
+ * ═══════════════════════════════════════
+ *  Estilos específicos deste jogo
+ *  Usar variáveis de base.css sempre que possível
+ * ═══════════════════════════════════════
+ */
+
+/* Área principal do jogo */
+.area-jogo {
+  background: var(--branco);
+  border: 3px solid var(--bege-esc);
+  border-radius: 22px;
+  padding: 24px 20px;
+  box-shadow: 0 6px 0 var(--bege-esc), 0 12px 24px rgba(139,94,60,.10);
+}
+
+/* Tela de celebração (escondida por padrão) */
+.celebracao-tela {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  padding: 20px;
+}
+.celebracao-tela.visivel { display: flex; }
+
+.celebracao-emoji {
+  font-size: 80px;
+  animation: pula .6s ease infinite;
+}
+
+.celebracao-titulo {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(28px, 7vw, 40px);
+  font-weight: 900;
+  color: var(--verde);
+}
+
+/* Vídeo de celebração */
+.video-celebracao {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+</style>
+
+<!-- Google Analytics 4 — Projeto Guguita -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-357V6NBRQ1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-357V6NBRQ1');
+</script>
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- Cabeçalho com botão voltar -->
+    <header style="display:flex; align-items:center; gap:12px;">
+      <a class="btn-voltar" href="../jogos.html">← Voltar</a>
+      <div>
+        <h1 class="titulo" style="font-size:clamp(22px,5.5vw,34px);">[NOME DO JOGO]</h1>
+        <p class="sub" style="font-size:clamp(13px,3.2vw,16px);">[Subtítulo / instrução curta]</p>
+      </div>
+    </header>
+
+    <!-- Área principal do jogo -->
+    <section class="area-jogo" id="area-jogo">
+
+      <!-- ═══ COLOQUE O CONTEÚDO DO JOGO AQUI ═══ -->
+      <p style="color:var(--cinza); text-align:center; padding:40px 0;">
+        Conteúdo do jogo vai aqui
+      </p>
+
+    </section>
+
+    <!-- Tela de celebração (mostrada ao concluir) -->
+    <section class="area-jogo celebracao-tela" id="celebracao" aria-live="polite">
+      <div class="celebracao-emoji">🎉</div>
+      <p class="celebracao-titulo">Muito bem, Guguita!</p>
+      <video class="video-celebracao" src="../assets/video/muito_bem.mp4"
+             autoplay muted playsinline loop></video>
+      <button class="btn btn--verde" id="btn-jogar-novo" onclick="reiniciarJogo()">
+        Jogar de novo!
+      </button>
+    </section>
+
+  </main>
+
+<script>
+/* ═══════════════════════════════════════
+ *  Lógica do jogo
+ * ═══════════════════════════════════════ */
+
+// Disparar quando a criança concluir o jogo:
+function jogoConcluidoGA4() {
+  gtag('event', 'jogo_concluido', {
+    jogo_nome: 'nome-do-jogo',       // ← trocar pelo nome real, ex: 'aventura-fase1'
+    jogo_categoria: 'matematica'     // ← trocar pela categoria: 'matematica', 'aventura', 'cores', 'linguagem'
+  });
+}
+
+// Mostrar tela de celebração:
+function mostrarCelebracao() {
+  document.getElementById('area-jogo').style.display = 'none';
+  document.getElementById('celebracao').classList.add('visivel');
+  jogoConcluidoGA4();
+}
+
+// Reiniciar jogo:
+function reiniciarJogo() {
+  document.getElementById('celebracao').classList.remove('visivel');
+  document.getElementById('area-jogo').style.display = '';
+  // ← adicionar lógica de reset aqui
+}
+
+// Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('../service-worker.js'));
+}
+</script>
+</body>
+</html>

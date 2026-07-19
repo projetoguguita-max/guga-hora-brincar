@@ -1,63 +1,54 @@
-const CACHE_NAME = 'guga-hora-brincar-v12';
-const ASSETS = [
-  './',
-  './index.html',
-  './jogos.html',
-  './hora_brincar.html',
-  './calculadora-vamos-tirar-v2.html',
-  './soma-vai-um.html',
-  './empilhar-colorir-blocos.html',
-  './calculadora-vamos-multiplicar.html',
-  './monstrinho-comparacao.html',
-  './aventura-guga-fase1.html',
-  './Maior.mp4',
-  './Menor.mp4',
-  './muito_bem.mp4',
-  './capa-guga.jpg',
-  './manifest.json'
+/*
+ * Projeto Guguita — Service Worker
+ * Atualizar CACHE_VERSION a cada deploy para limpar o cache anterior.
+ */
+
+const CACHE_VERSION = 'guguita-v2';
+const CACHE_ASSETS = [
+  '/',
+  '/index.html',
+  '/jogos.html',
+  '/manifest.json',
+  '/assets/css/base.css',
+  '/assets/img/capa-guga.jpg',
+  '/assets/img/capa-guga.svg',
+  '/assets/video/muito_bem.mp4',
+  '/assets/video/Maior.mp4',
+  '/assets/video/Menor.mp4',
+  '/jogos/aventura-guga-fase1.html',
+  '/jogos/calculadora-vamos-multiplicar.html',
+  '/jogos/calculadora-vamos-tirar-v2.html',
+  '/jogos/empilhar-colorir-blocos.html',
+  '/jogos/monstrinho-comparacao.html',
+  '/jogos/soma-vai-um.html',
 ];
 
+// Instalação — pré-cache dos assets principais
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE_VERSION)
+      .then(cache => cache.addAll(CACHE_ASSETS))
       .then(() => self.skipWaiting())
   );
 });
 
+// Ativação — limpa caches antigos
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
-      .then(() => self.clients.claim())
+    caches.keys().then(keys =>
+      Promise.all(
+        keys
+          .filter(key => key !== CACHE_VERSION)
+          .map(key => caches.delete(key))
+      )
+    ).then(() => self.clients.claim())
   );
 });
 
+// Fetch — cache first, network fallback
 self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') return;
-
-  const requestUrl = new URL(event.request.url);
-  const wantsHtml = event.request.mode === 'navigate' || requestUrl.pathname.endsWith('.html');
-
-  if (wantsHtml) {
-    event.respondWith(
-      fetch(event.request).then(response => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
-        return response;
-      }).catch(() => caches.match(event.request))
-    );
-    return;
-  }
-
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      if (cached) return cached;
-      return fetch(event.request).then(response => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
-        return response;
-      });
-    })
+    caches.match(event.request)
+      .then(cached => cached || fetch(event.request))
   );
 });

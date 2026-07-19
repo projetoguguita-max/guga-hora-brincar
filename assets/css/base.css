@@ -1,0 +1,324 @@
+/*
+ * =====================================================
+ *  Projeto Guguita — Design System Base
+ *  assets/css/base.css
+ *
+ *  Importar em TODAS as páginas:
+ *  <link rel="stylesheet" href="/assets/css/base.css">
+ *  (ajuste o caminho relativo conforme a profundidade)
+ * =====================================================
+ */
+
+/* ── Google Fonts ────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@600;700;800;900&display=swap');
+
+/* ── Tokens de cor ───────────────────────────────── */
+:root {
+  --creme:       #F5EDD8;
+  --branco:      #FFFDF8;
+  --bege:        #E8D9B8;
+  --bege-esc:    #C8B890;
+  --marrom:      #8B5E3C;
+  --marrom-cl:   #C4895A;
+  --azul:        #2F7FC0;
+  --azul-cl:     #5BA8E0;
+  --azul-esc:    #1A5A90;
+  --verde:       #4A9B6F;
+  --verde-esc:   #2E7050;
+  --vermelho:    #C84040;
+  --laranja:     #D4733A;
+  --rosa:        #D963A5;
+  --roxo:        #7C5AC7;
+  --texto:       #2A1A0A;
+  --cinza:       #8A7A6A;
+
+  /* Touch targets mínimos (tablet/celular) */
+  --touch-min:   52px;
+}
+
+/* ── Reset ───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Body base ───────────────────────────────────── */
+body {
+  min-height: 100vh;
+  font-family: 'Nunito', sans-serif;
+  background: var(--creme);
+  color: var(--texto);
+  padding: 22px 14px;
+}
+
+/* Gradiente de fundo sutil */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15%  8%, rgba(196,137, 90,.14), transparent 48%),
+    radial-gradient(ellipse at 85% 92%, rgba( 47,127,192,.10), transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Layout wrapper ──────────────────────────────── */
+.wrap {
+  position: relative;
+  z-index: 1;
+  width: min(760px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.wrap--narrow {
+  width: min(640px, 100%);
+  min-height: calc(100vh - 44px);
+  justify-content: center;
+}
+
+/* ── Cabeçalho / Topo ────────────────────────────── */
+.topo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--branco);
+  border: 3px solid var(--bege-esc);
+  border-radius: 22px;
+  padding: 14px;
+  box-shadow: 0 6px 0 var(--bege-esc), 0 12px 24px rgba(139,94,60,.12);
+}
+
+.capa {
+  width: 92px;
+  height: 92px;
+  border-radius: 18px;
+  object-fit: cover;
+  border: 3px solid var(--bege);
+  flex: 0 0 auto;
+}
+
+.titulo {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(32px, 8vw, 54px);
+  line-height: .95;
+  font-weight: 900;
+  color: var(--marrom);
+}
+
+.titulo span { color: var(--azul); }
+
+.sub {
+  margin-top: 6px;
+  color: var(--cinza);
+  font-size: clamp(15px, 3.8vw, 19px);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+/* ── Cards de navegação ──────────────────────────── */
+.grade {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: var(--touch-min);
+  padding: 15px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 18px;
+  border: 3px solid transparent;
+  box-shadow: 0 5px 0 rgba(0,0,0,.14), 0 8px 20px rgba(0,0,0,.08);
+  transition: transform .12s ease, box-shadow .12s ease;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.card:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 rgba(0,0,0,.14), 0 2px 8px rgba(0,0,0,.08);
+}
+
+/* Variantes de cor de card */
+.card--azul   { background: var(--azul);    color: #fff; box-shadow: 0 5px 0 var(--azul-esc),    0 8px 20px rgba(47,127,192,.25); }
+.card--verde  { background: var(--verde);   color: #fff; box-shadow: 0 5px 0 var(--verde-esc),   0 8px 20px rgba(74,155,111,.25); }
+.card--laranja{ background: var(--laranja); color: #fff; box-shadow: 0 5px 0 #A0532A,            0 8px 20px rgba(212,115,58,.25); }
+.card--roxo   { background: var(--roxo);    color: #fff; box-shadow: 0 5px 0 #5A3F9A,            0 8px 20px rgba(124,90,199,.25); }
+.card--rosa   { background: var(--rosa);    color: #fff; box-shadow: 0 5px 0 #B0408A,            0 8px 20px rgba(217,99,165,.25); }
+.card--marrom { background: var(--marrom);  color: #fff; box-shadow: 0 5px 0 #5A3A20,            0 8px 20px rgba(139,94,60,.25); }
+.card--vermelho { background: var(--vermelho); color: #fff; box-shadow: 0 5px 0 #8B2020,         0 8px 20px rgba(200,64,64,.25); }
+.card--branco { background: var(--branco);  color: var(--texto); border-color: var(--bege-esc); box-shadow: 0 5px 0 var(--bege-esc), 0 8px 20px rgba(0,0,0,.08); }
+
+/* ── Ícone de card ───────────────────────────────── */
+.card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex: 0 0 auto;
+}
+
+.card-icon--texto {
+  font-family: 'Baloo 2', cursive;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: -.5px;
+}
+
+.card-info { flex: 1; }
+
+.card-nome {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(20px, 5vw, 26px);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.card-desc {
+  font-size: clamp(13px, 3.2vw, 15px);
+  font-weight: 700;
+  opacity: .85;
+  margin-top: 2px;
+}
+
+/* ── Botão voltar ────────────────────────────────── */
+.btn-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--branco);
+  border: 3px solid var(--bege-esc);
+  border-radius: 14px;
+  padding: 10px 18px;
+  font-family: 'Baloo 2', cursive;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--marrom);
+  text-decoration: none;
+  box-shadow: 0 4px 0 var(--bege-esc);
+  transition: transform .12s ease, box-shadow .12s ease;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  min-height: var(--touch-min);
+}
+
+.btn-voltar:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--bege-esc);
+}
+
+/* ── Botão primário ──────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 16px;
+  padding: 14px 28px;
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(18px, 4.5vw, 22px);
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+  -webkit-user-select: none;
+  user-select: none;
+  min-height: var(--touch-min);
+}
+
+.btn:active {
+  transform: translateY(4px);
+}
+
+.btn--azul   { background: var(--azul);    color: #fff; box-shadow: 0 5px 0 var(--azul-esc); }
+.btn--verde  { background: var(--verde);   color: #fff; box-shadow: 0 5px 0 var(--verde-esc); }
+.btn--laranja{ background: var(--laranja); color: #fff; box-shadow: 0 5px 0 #A0532A; }
+
+/* ── Área de jogo ────────────────────────────────── */
+.area-jogo {
+  background: var(--branco);
+  border: 3px solid var(--bege-esc);
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: 0 6px 0 var(--bege-esc), 0 12px 24px rgba(139,94,60,.10);
+}
+
+/* ── Emblema de estrela / conquista ──────────────── */
+.estrela {
+  display: inline-block;
+  font-size: 28px;
+  filter: grayscale(1) opacity(.35);
+  transition: filter .3s ease, transform .3s ease;
+}
+.estrela.conquistada {
+  filter: none;
+  transform: scale(1.2);
+}
+
+/* ── Animação de celebração ──────────────────────── */
+@keyframes pula {
+  0%, 100% { transform: translateY(0) scale(1); }
+  40%       { transform: translateY(-12px) scale(1.08); }
+  60%       { transform: translateY(-6px) scale(1.04); }
+}
+
+@keyframes aparece {
+  from { opacity: 0; transform: scale(.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.celebracao {
+  animation: aparece .4s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+.pula {
+  animation: pula .6s ease infinite;
+}
+
+/* ── Rodapé ──────────────────────────────────────── */
+.rodape {
+  text-align: center;
+  color: var(--cinza);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 0 4px;
+}
+
+/* ── Responsividade ──────────────────────────────── */
+
+/* Tablet (768px+) — grid de 2 colunas para cards */
+@media (min-width: 768px) {
+  .grade--2col {
+    grid-template-columns: 1fr 1fr;
+  }
+  .capa {
+    width: 108px;
+    height: 108px;
+  }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  body {
+    padding: 32px 24px;
+  }
+  .grade--3col {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
