@@ -2,7 +2,7 @@
 
 ## Quem é o Gustavo?
 
-Gustavo (Guguita) é filho do Ricardo Nabais. Tem autismo e aprende de uma forma
+Gustavo (Guguita) é filho do Rodrigo. Tem autismo e aprende de uma forma
 única — com muita energia, estímulos visuais, repetição positiva e celebração das
 conquistas. O Projeto Guguita nasceu do amor do pai pelo filho e da vontade de criar
 ferramentas que funcionam **para ele, do jeito dele**.

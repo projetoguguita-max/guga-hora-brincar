@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="theme-color" content="#F5EDD8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Guga e Papai">
+<meta name="description" content="Blocos e Carinhas — monte a conta, pinte blocos e cole carinhas. Projeto Guguita.">
+<link rel="manifest" href="../manifest.json">
+<link rel="apple-touch-icon" href="../assets/img/capa-guga.jpg">
+<title>Blocos e Carinhas — Projeto Guguita</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@600;700;800;900&display=swap');
+:root{
+  --creme:#F5EDD8;--branco:#FFFDF8;--bege:#E8D9B8;--bege-esc:#C8B890;--marrom:#8B5E3C;
+  --azul:#2F7FC0;--azul-claro:#5BA8E0;--azul-esc:#1A5A90;--verde:#4A9B6F;--verde-esc:#236b45;
+  --vermelho:#C84040;--laranja:#D4733A;--amarelo:#E8B840;--anil:#3752A3;--roxo:#7C5AC7;--rosa:#D963A5;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden}
+body{
+  background:linear-gradient(180deg,var(--creme),#efe3c4);
+  color:var(--marrom);font-family:Nunito,system-ui,sans-serif;
+  padding:10px;touch-action:manipulation;
+}
+.app{width:min(1120px,100%);height:calc(100dvh - 20px);margin:0 auto;display:grid;grid-template-rows:auto 1fr;gap:10px}
+.topo{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:12px}
+.voltar{
+  display:inline-flex;align-items:center;gap:6px;min-height:48px;padding:0 15px;border-radius:14px;
+  background:var(--branco);border:3px solid var(--bege-esc);box-shadow:0 4px 0 var(--bege-esc);
+  color:var(--marrom);font-family:"Baloo 2",Nunito,sans-serif;font-weight:900;font-size:16px;text-decoration:none;
+}
+.voltar:active{transform:translateY(3px);box-shadow:0 1px 0 var(--bege-esc)}
+.titulo{margin:0;font-family:"Baloo 2",Nunito,sans-serif;font-size:clamp(22px,4vw,38px);line-height:.95}
+.titulo span{color:var(--rosa)}
+button{border:0;cursor:pointer;font-family:Nunito,system-ui,sans-serif;font-weight:900;color:var(--branco);
+  transition:transform .1s ease,box-shadow .1s ease,filter .1s ease;-webkit-tap-highlight-color:transparent}
+button:active{transform:translateY(3px);box-shadow:none}
+button:disabled{cursor:default;opacity:.5;filter:saturate(.7);transform:none}
+.btn{min-height:52px;padding:0 16px;border-radius:15px;font-size:17px;white-space:nowrap}
+.btn-azul{background:linear-gradient(180deg,var(--azul-claro),var(--azul));box-shadow:0 5px 0 var(--azul-esc)}
+.btn-laranja{background:linear-gradient(180deg,var(--laranja),#b95825);box-shadow:0 5px 0 #8d3e18}
+.btn-verde{background:linear-gradient(180deg,var(--verde),var(--verde-esc));box-shadow:0 5px 0 #16512f}
+
+.jogo{min-height:0;display:grid;grid-template-columns:minmax(310px,.92fr) minmax(0,1.08fr);gap:10px}
+.painel{min-height:0;background:var(--branco);border:3px solid var(--bege-esc);border-radius:18px;
+  box-shadow:0 6px 0 var(--bege-esc),0 12px 24px rgba(94,65,34,.14)}
+.controles{padding:10px;display:flex;flex-direction:column;gap:9px;overflow-y:auto}
+
+.mensagem{min-height:46px;display:grid;place-items:center;text-align:center;padding:6px 10px;
+  background:#fffaf0;border:3px solid var(--bege);border-radius:14px;
+  font-family:"Baloo 2",Nunito,sans-serif;font-size:clamp(17px,2.4vw,22px);line-height:1.05;color:var(--azul-esc)}
+
+/* Monte a conta */
+.conta{background:#fffaf0;border:3px solid var(--bege);border-radius:16px;padding:9px;display:grid;gap:6px}
+.conta-rotulo{font-size:12px;font-weight:900;text-transform:uppercase;color:#9a704f;text-align:center}
+.stepper-row{display:flex;align-items:center;justify-content:center;gap:8px}
+.stepper{display:flex;align-items:center;gap:5px;background:var(--branco);border:3px solid var(--bege-esc);border-radius:13px;padding:3px}
+.mais-menos{width:44px;height:44px;border-radius:11px;background:linear-gradient(180deg,var(--azul-claro),var(--azul));
+  box-shadow:0 4px 0 var(--azul-esc);font-size:26px;line-height:1;display:grid;place-items:center}
+.stepper-num{min-width:38px;text-align:center;font-family:"Baloo 2",Nunito,sans-serif;font-size:36px;color:var(--azul);line-height:1}
+.conta-mais{font-family:"Baloo 2",Nunito,sans-serif;font-size:30px;color:var(--marrom)}
+.conta-extenso{text-align:center;font-size:clamp(14px,2.2vw,18px);font-weight:900;color:var(--marrom)}
+
+/* Conferir + contador */
+.conferir-row{display:grid;grid-template-columns:auto 1fr;gap:9px}
+.contador{display:flex;align-items:center;gap:9px;padding:5px 14px;background:#fffaf0;border:3px solid var(--bege);border-radius:15px}
+.contador .rotulo{font-size:12px;font-weight:900;text-transform:uppercase;color:#9a704f;line-height:1.05;max-width:56px}
+.contador .numero{font-family:"Baloo 2",Nunito,sans-serif;font-size:38px;color:var(--rosa);line-height:.9}
+.conferir-row .btn{width:100%}
+
+.grupo-rotulo{font-size:12px;font-weight:900;text-transform:uppercase;color:#9a704f;margin:1px 0 -3px}
+.paleta{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.cor{min-height:46px;border-radius:13px;border:4px solid #fff;
+  box-shadow:0 4px 0 rgba(87,63,36,.28),0 7px 14px rgba(94,65,34,.12);
+  color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.18);font-size:12px}
+.cor-clara{color:var(--marrom);text-shadow:none;border-color:var(--bege-esc)}
+.carinhas{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.ferramenta{min-height:50px;border-radius:13px;border:4px solid #fff;background:#fffaf0;
+  box-shadow:0 4px 0 rgba(87,63,36,.22),0 7px 14px rgba(94,65,34,.10);display:grid;place-items:center;padding:3px}
+.ferramenta svg{width:100%;height:100%;max-height:40px;display:block}
+.ferramenta.borracha{color:var(--marrom);font-size:12px;font-family:"Baloo 2",Nunito,sans-serif}
+.cor[aria-pressed="true"],.ferramenta[aria-pressed="true"]{outline:4px solid var(--marrom);outline-offset:2px;transform:translateY(-2px)}
+.acoes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:1px}
+
+/* Matriz */
+.area{padding:10px;display:grid;place-items:center;min-height:0}
+.mesa{width:100%;height:100%;min-height:0;display:grid;place-items:center;padding:8px;overflow:hidden;
+  border:3px dashed var(--bege-esc);border-radius:16px;
+  background:linear-gradient(0deg,rgba(232,217,184,.22),rgba(232,217,184,.22)),#fffaf0}
+.grade-blocos{aspect-ratio:1;height:100%;max-width:100%;
+  display:grid;grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(10,1fr);gap:3px}
+.cel{width:100%;height:100%;padding:0;border:2px solid var(--bege-esc);border-radius:6px;
+  background:rgba(255,250,240,.55);position:relative;overflow:hidden}
+.cel.pintado{border-color:rgba(255,255,255,.72);box-shadow:inset 0 -5px 0 rgba(0,0,0,.10)}
+.cel svg{position:absolute;inset:7%;width:86%;height:86%;pointer-events:none}
+.cel.aplicar{animation:pop .22s ease}
+@keyframes pop{0%{transform:scale(.82)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+
+/* Celebração */
+.celebra{position:fixed;inset:0;z-index:50;display:none;place-items:center;background:rgba(42,26,10,.55);padding:18px}
+.celebra.visivel{display:grid}
+.celebra-card{width:min(460px,100%);background:var(--branco);border:4px solid var(--amarelo);border-radius:24px;
+  padding:18px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.3);display:grid;gap:12px}
+.celebra-titulo{font-family:"Baloo 2",Nunito,sans-serif;font-size:clamp(26px,6vw,38px);color:var(--verde-esc);margin:0}
+.celebra-video{width:100%;border-radius:16px;border:3px solid var(--amarelo);background:#000;max-height:44vh}
+#confetes{position:fixed;inset:0;pointer-events:none;z-index:60}
+.conf{position:absolute;width:11px;height:11px;border-radius:2px;animation:cair linear forwards}
+@keyframes cair{from{opacity:1;transform:translateY(-12px) rotate(0)}to{opacity:0;transform:translateY(105vh) rotate(900deg)}}
+
+@media (max-width:820px){
+  html,body{overflow:auto;height:auto}
+  .app{height:auto;min-height:calc(100dvh - 20px)}
+  .jogo{grid-template-columns:1fr;grid-template-rows:auto auto}
+  .area{order:-1;min-height:52vh}
+  .grade-blocos{height:auto;width:min(100%,70vh)}
+  .controles{overflow:visible}
+}
+@media (max-width:430px){
+  .carinhas{grid-template-columns:repeat(6,1fr);gap:5px}
+  .cor{min-height:44px;font-size:11px}
+}
+</style>
+
+<!-- Google Analytics 4 — Projeto Guguita -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-357V6N6RQ1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-357V6N6RQ1');
+</script>
+</head>
+<body>
+  <main class="app">
+    <header class="topo">
+      <a class="voltar" href="../jogos.html">&larr; Voltar</a>
+      <h1 class="titulo">Blocos e <span>Carinhas</span></h1>
+    </header>
+
+    <section class="jogo" aria-label="Jogo de blocos e carinhas">
+      <aside class="painel controles">
+        <div class="mensagem" id="mensagem" aria-live="polite">Monte a conta e pinte!</div>
+
+        <div class="conta" aria-label="Monte a conta">
+          <span class="conta-rotulo">Monte a conta</span>
+          <div class="stepper-row">
+            <div class="stepper">
+              <button class="mais-menos" data-op="a" data-d="-1" type="button" aria-label="Menos no primeiro número">−</button>
+              <span class="stepper-num" id="num-a">2</span>
+              <button class="mais-menos" data-op="a" data-d="1" type="button" aria-label="Mais no primeiro número">+</button>
+            </div>
+            <span class="conta-mais">+</span>
+            <div class="stepper">
+              <button class="mais-menos" data-op="b" data-d="-1" type="button" aria-label="Menos no segundo número">−</button>
+              <span class="stepper-num" id="num-b">3</span>
+              <button class="mais-menos" data-op="b" data-d="1" type="button" aria-label="Mais no segundo número">+</button>
+            </div>
+          </div>
+          <span class="conta-extenso" id="conta-extenso">dois mais três</span>
+        </div>
+
+        <div class="conferir-row">
+          <div class="contador" aria-label="Blocos pintados">
+            <span class="rotulo">Você pintou</span>
+            <span class="numero" id="pintou-num">0</span>
+          </div>
+          <button class="btn btn-verde" id="conferir" type="button">Conferir</button>
+        </div>
+
+        <span class="grupo-rotulo">Cores</span>
+        <div class="paleta" id="paleta" aria-label="Escolher cor"></div>
+
+        <span class="grupo-rotulo">Carinhas</span>
+        <div class="carinhas" id="carinhas" aria-label="Escolher carinha ou borracha"></div>
+
+        <div class="acoes">
+          <button class="btn btn-laranja" id="desfazer" type="button" disabled>Desfazer</button>
+          <button class="btn btn-azul" id="limpar" type="button">Limpar tudo</button>
+        </div>
+      </aside>
+
+      <section class="painel area">
+        <div class="mesa">
+          <div class="grade-blocos" id="grade" aria-label="Matriz de 10 por 10 blocos"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="celebra" id="celebra" aria-live="polite">
+    <div class="celebra-card">
+      <p class="celebra-titulo" id="celebra-titulo">Isso mesmo!</p>
+      <video class="celebra-video" id="celebra-video" src="../assets/video/muito_bem.mp4" playsinline></video>
+      <button class="btn btn-verde" id="celebra-continuar" type="button">Continuar brincando</button>
+    </div>
+  </div>
+  <div id="confetes"></div>
+
+<script>
+/* ── Números por extenso (0 a 100) ── */
+const UNI = ['zero','um','dois','três','quatro','cinco','seis','sete','oito','nove'];
+const DEZ_ESP = ['dez','onze','doze','treze','catorze','quinze','dezesseis','dezessete','dezoito','dezenove'];
+const DEZENAS = ['','','vinte','trinta','quarenta','cinquenta','sessenta','setenta','oitenta','noventa'];
+function extenso(n){
+  if(n <= 9) return UNI[n];
+  if(n <= 19) return DEZ_ESP[n-10];
+  if(n === 100) return 'cem';
+  const d = Math.floor(n/10), u = n%10;
+  return u === 0 ? DEZENAS[d] : DEZENAS[d] + ' e ' + UNI[u];
+}
+function blocosTxt(n){ return extenso(n) + (n === 1 ? ' bloco' : ' blocos'); }
+
+/* ── Cores ── */
+const CORES = [
+  {cor:'#C84040', nome:'Vermelho'},{cor:'#D4733A', nome:'Laranja'},
+  {cor:'#E8B840', nome:'Amarelo', clara:true},{cor:'#4A9B6F', nome:'Verde'},
+  {cor:'#2F7FC0', nome:'Azul'},{cor:'#3752A3', nome:'Anil'},
+  {cor:'#7C5AC7', nome:'Violeta'},{cor:'#D963A5', nome:'Rosa'},
+  {cor:'#FFFFFF', nome:'Branco', clara:true},{cor:'#202020', nome:'Preto'},
+];
+
+/* ── Carinhas (SVG desenhado, sem imagens externas) ── */
+function pontosEstrela(cx,cy,rO,rI){
+  let p=[];
+  for(let i=0;i<10;i++){const r=i%2===0?rO:rI;const a=-Math.PI/2+i*Math.PI/5;
+    p.push((cx+r*Math.cos(a)).toFixed(1)+','+(cy+r*Math.sin(a)).toFixed(1));}
+  return p.join(' ');
+}
+function coracao(cx,cy,s){
+  return `<path d="M ${cx} ${cy+s} C ${cx-s*1.5} ${cy-s*0.4}, ${cx-s*0.6} ${cy-s*1.2}, ${cx} ${cy-s*0.35}`
+       + ` C ${cx+s*0.6} ${cy-s*1.2}, ${cx+s*1.5} ${cy-s*0.4}, ${cx} ${cy+s} Z"`
+       + ` fill="#E23B6D" stroke="#2A1A0A" stroke-width="2.2"/>`;
+}
+const OLHOS = `
+  <circle cx="34" cy="42" r="12" fill="#fff" stroke="#2A1A0A" stroke-width="2.5"/>
+  <circle cx="66" cy="42" r="12" fill="#fff" stroke="#2A1A0A" stroke-width="2.5"/>
+  <circle cx="34" cy="44" r="5.5" fill="#2A1A0A"/>
+  <circle cx="66" cy="44" r="5.5" fill="#2A1A0A"/>`;
+function boca(d){
+  return `<path d="${d}" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/>`
+       + `<path d="${d}" fill="none" stroke="#2A1A0A" stroke-width="5" stroke-linecap="round"/>`;
+}
+const wrap = inner => `<svg viewBox="0 0 100 100">${inner}</svg>`;
+
+const FACES = {
+  feliz:{ nome:'Feliz', svg: wrap(OLHOS + boca('M30 62 Q50 84 70 62')) },
+  rindo:{ nome:'Rindo', svg: wrap(`
+    <path d="M24 46 Q34 32 44 46" fill="none" stroke="#2A1A0A" stroke-width="5" stroke-linecap="round"/>
+    <path d="M56 46 Q66 32 76 46" fill="none" stroke="#2A1A0A" stroke-width="5" stroke-linecap="round"/>
+    <path d="M28 60 Q50 66 72 60 Q66 88 50 88 Q34 88 28 60 Z" fill="#7a2b2b" stroke="#2A1A0A" stroke-width="3"/>
+    <path d="M40 80 Q50 90 60 80 Z" fill="#E86A8A"/>`) },
+  apaixonado:{ nome:'Apaixonado', svg: wrap(coracao(34,42,11) + coracao(66,42,11) + boca('M30 64 Q50 82 70 64')) },
+  estrela:{ nome:'Estrela', svg: wrap(`
+    <polygon points="${pontosEstrela(34,42,14,6)}" fill="#F2C94C" stroke="#2A1A0A" stroke-width="2.5" stroke-linejoin="round"/>
+    <polygon points="${pontosEstrela(66,42,14,6)}" fill="#F2C94C" stroke="#2A1A0A" stroke-width="2.5" stroke-linejoin="round"/>
+    ${boca('M28 64 Q50 86 72 64')}`) },
+  surpreso:{ nome:'Surpreso', svg: wrap(`
+    <circle cx="34" cy="40" r="13" fill="#fff" stroke="#2A1A0A" stroke-width="2.5"/>
+    <circle cx="66" cy="40" r="13" fill="#fff" stroke="#2A1A0A" stroke-width="2.5"/>
+    <circle cx="34" cy="41" r="6" fill="#2A1A0A"/><circle cx="66" cy="41" r="6" fill="#2A1A0A"/>
+    <ellipse cx="50" cy="72" rx="9" ry="12" fill="#2A1A0A" stroke="#fff" stroke-width="3"/>`) },
+  triste:{ nome:'Triste', svg: wrap(OLHOS + boca('M30 76 Q50 60 70 76')) },
+  chorando:{ nome:'Chorando', svg: wrap(`
+    <path d="M22 40 Q34 32 46 40" fill="none" stroke="#2A1A0A" stroke-width="4" stroke-linecap="round"/>
+    <path d="M54 40 Q66 32 78 40" fill="none" stroke="#2A1A0A" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="34" cy="46" r="4" fill="#2A1A0A"/><circle cx="66" cy="46" r="4" fill="#2A1A0A"/>
+    <path d="M28 50 Q24 66 28 82 Q34 68 30 52 Z" fill="#5BA8E0" stroke="#2A1A0A" stroke-width="1.4"/>
+    <path d="M72 50 Q76 66 72 82 Q66 68 70 52 Z" fill="#5BA8E0" stroke="#2A1A0A" stroke-width="1.4"/>
+    ${boca('M32 78 Q50 64 68 78')}`) },
+  bravo:{ nome:'Bravo', svg: wrap(`
+    <path d="M20 30 L45 42" stroke="#2A1A0A" stroke-width="7" stroke-linecap="round"/>
+    <path d="M80 30 L55 42" stroke="#2A1A0A" stroke-width="7" stroke-linecap="round"/>
+    ${OLHOS}${boca('M30 76 Q50 62 70 76')}`) },
+  medo:{ nome:'Com medo', svg: wrap(`
+    <circle cx="34" cy="42" r="13" fill="#fff" stroke="#2A1A0A" stroke-width="2.5"/>
+    <circle cx="66" cy="42" r="13" fill="#fff" stroke="#2A1A0A" stroke-width="2.5"/>
+    <circle cx="34" cy="46" r="5" fill="#2A1A0A"/><circle cx="66" cy="46" r="5" fill="#2A1A0A"/>
+    <path d="M84 22 Q80 34 76 22 Q80 16 84 22 Z" fill="#5BA8E0" stroke="#2A1A0A" stroke-width="1.4"/>
+    <path d="M32 74 q6 -8 9 0 q6 8 9 0 q6 -8 9 0" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+    <path d="M32 74 q6 -8 9 0 q6 8 9 0 q6 -8 9 0" fill="none" stroke="#2A1A0A" stroke-width="4.5" stroke-linecap="round"/>`) },
+  vilao:{ nome:'Vilão', svg: wrap(`
+    <path d="M18 28 L42 36" stroke="#2A1A0A" stroke-width="5" stroke-linecap="round"/>
+    <path d="M82 28 L58 36" stroke="#2A1A0A" stroke-width="5" stroke-linecap="round"/>
+    ${OLHOS}
+    <path d="M4 58 Q50 50 96 58 L96 74 Q50 96 4 74 Z" fill="#B23A3A" stroke="#2A1A0A" stroke-width="2.5"/>
+    <path d="M4 58 L-6 52 L-2 68 L-8 82 L8 74 Z" fill="#8d2323" stroke="#2A1A0A" stroke-width="2"/>
+    <path d="M22 63 L34 80 M42 61 L54 82 M62 61 L74 80" stroke="#2A1A0A" stroke-width="1.6" opacity=".45"/>`) },
+};
+
+/* ── Estado ── */
+const N = 100;
+const estado = {
+  celulas: Array.from({length:N}, () => ({cor:null, face:null})),
+  ferramenta: {tipo:'cor', valor:'#C84040', nome:'Vermelho'},
+  historico: [],
+  a: 2, b: 3,
+};
+
+const grade = document.getElementById('grade');
+const paleta = document.getElementById('paleta');
+const carinhasBox = document.getElementById('carinhas');
+const mensagem = document.getElementById('mensagem');
+const pintouNum = document.getElementById('pintou-num');
+const contaExtenso = document.getElementById('conta-extenso');
+const numA = document.getElementById('num-a');
+const numB = document.getElementById('num-b');
+const desfazer = document.getElementById('desfazer');
+let celulasDOM = [];
+function msg(t){ mensagem.textContent = t; }
+
+/* ── Paletas ── */
+CORES.forEach((c,i) => {
+  const b = document.createElement('button');
+  b.type='button'; b.className='cor'+(c.clara?' cor-clara':''); b.style.background=c.cor;
+  b.textContent=c.nome; b.setAttribute('aria-pressed', String(i===0));
+  b.addEventListener('click', ()=>escolherFerramenta({tipo:'cor',valor:c.cor,nome:c.nome}, b));
+  paleta.appendChild(b);
+});
+Object.entries(FACES).forEach(([id,f]) => {
+  const b = document.createElement('button');
+  b.type='button'; b.className='ferramenta'; b.innerHTML=f.svg;
+  b.setAttribute('aria-label','Carinha '+f.nome); b.setAttribute('aria-pressed','false');
+  b.addEventListener('click', ()=>escolherFerramenta({tipo:'face',valor:id,nome:f.nome}, b));
+  carinhasBox.appendChild(b);
+});
+const borracha = document.createElement('button');
+borracha.type='button'; borracha.className='ferramenta borracha'; borracha.textContent='Apagar';
+borracha.setAttribute('aria-pressed','false');
+borracha.addEventListener('click', ()=>escolherFerramenta({tipo:'apagar',valor:null,nome:'Borracha'}, borracha));
+carinhasBox.appendChild(borracha);
+
+const todasFerramentas = [...paleta.children, ...carinhasBox.children];
+function escolherFerramenta(f, botao){
+  estado.ferramenta=f;
+  todasFerramentas.forEach(b=>b.setAttribute('aria-pressed', String(b===botao)));
+  if(f.tipo==='cor') msg('Cor '+f.nome+'. Toque nos blocos!');
+  else if(f.tipo==='face') msg('Carinha '+f.nome+'. Toque num bloco!');
+  else msg('Borracha. Toque para apagar.');
+}
+
+/* ── Grade ── */
+for(let i=0;i<N;i++){
+  const cel=document.createElement('button');
+  cel.type='button'; cel.className='cel'; cel.dataset.i=i;
+  cel.setAttribute('aria-label','Bloco '+(i+1));
+  grade.appendChild(cel); celulasDOM.push(cel);
+}
+grade.addEventListener('click', ev=>{
+  const alvo=ev.target.closest('.cel'); if(!alvo) return;
+  aplicar(Number(alvo.dataset.i));
+});
+function renderCel(i){
+  const c=estado.celulas[i], el=celulasDOM[i];
+  el.classList.toggle('pintado', !!c.cor);
+  el.style.background=c.cor||'rgba(255,250,240,.55)';
+  el.innerHTML=c.face?FACES[c.face].svg:'';
+}
+function aplicar(i){
+  const c=estado.celulas[i], anterior={cor:c.cor,face:c.face}, f=estado.ferramenta;
+  if(f.tipo==='cor') c.cor=f.valor;
+  else if(f.tipo==='face') c.face=f.valor;
+  else { c.cor=null; c.face=null; }
+  if(anterior.cor===c.cor && anterior.face===c.face) return;
+  estado.historico.push({i, anterior});
+  renderCel(i);
+  const el=celulasDOM[i]; el.classList.remove('aplicar'); void el.offsetWidth; el.classList.add('aplicar');
+  atualizarContador();
+}
+function contarPintados(){ return estado.celulas.reduce((s,c)=>s+(c.cor?1:0),0); }
+function atualizarContador(){
+  pintouNum.textContent=contarPintados();
+  desfazer.disabled=estado.historico.length===0;
+}
+
+/* ── Monte a conta (steppers) ── */
+function atualizarConta(){
+  numA.textContent=estado.a; numB.textContent=estado.b;
+  contaExtenso.textContent=extenso(estado.a)+' mais '+extenso(estado.b);
+}
+document.querySelectorAll('.mais-menos').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const op=btn.dataset.op, d=Number(btn.dataset.d);
+    estado[op]=Math.min(10, Math.max(1, estado[op]+d));
+    atualizarConta();
+    msg('A conta é '+estado.a+' + '+estado.b+'. Agora pinte!');
+  });
+});
+
+/* ── Conferir ── */
+function conferir(){
+  const n=contarPintados(), r=estado.a+estado.b;
+  if(n===r) comemorar(n,r);
+  else if(n<r) msg('Você pintou '+extenso(n)+'. Pinte mais '+blocosTxt(r-n)+'!');
+  else msg('Você pintou '+extenso(n)+'. Tire '+blocosTxt(n-r)+'.');
+}
+
+/* ── Comemoração ── */
+const celebra=document.getElementById('celebra');
+const celebraVideo=document.getElementById('celebra-video');
+const celebraTitulo=document.getElementById('celebra-titulo');
+function comemorar(n,r){
+  celebraTitulo.textContent=extenso(estado.a)+' mais '+extenso(estado.b)+' é '+extenso(r)+'!';
+  msg('Isso mesmo! '+blocosTxt(n)+'!');
+  confetes(60); celebra.classList.add('visivel');
+  try{ celebraVideo.currentTime=0; celebraVideo.play().catch(()=>{}); }catch(e){}
+  gtag('event','jogo_concluido',{jogo_nome:'blocos-carinhas', jogo_categoria:'cores'});
+}
+document.getElementById('celebra-continuar').addEventListener('click', ()=>{
+  celebra.classList.remove('visivel');
+  try{ celebraVideo.pause(); }catch(e){}
+  limparTudo();
+  msg('Monte outra conta e pinte!');
+});
+function confetes(qtd){
+  const box=document.getElementById('confetes');
+  const cores=['#C84040','#D4733A','#E8B840','#4A9B6F','#2F7FC0','#7C5AC7','#D963A5'];
+  for(let i=0;i<qtd;i++){
+    const c=document.createElement('div'); c.className='conf';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=cores[Math.floor(Math.random()*cores.length)];
+    c.style.animationDuration=(1.6+Math.random()*1.4)+'s';
+    c.style.animationDelay=(Math.random()*.4)+'s';
+    box.appendChild(c); setTimeout(()=>c.remove(),3600);
+  }
+}
+
+/* ── Ações ── */
+function limparTudo(){
+  estado.celulas.forEach((c,i)=>{ c.cor=null; c.face=null; renderCel(i); });
+  estado.historico=[]; atualizarContador();
+}
+desfazer.addEventListener('click', ()=>{
+  const passo=estado.historico.pop(); if(!passo) return;
+  estado.celulas[passo.i].cor=passo.anterior.cor;
+  estado.celulas[passo.i].face=passo.anterior.face;
+  renderCel(passo.i); atualizarContador(); msg('Tudo bem. Voltamos um passo.');
+});
+document.getElementById('limpar').addEventListener('click', ()=>{ limparTudo(); msg('Tela limpa. Vamos de novo!'); });
+document.getElementById('conferir').addEventListener('click', conferir);
+
+/* ── Início ── */
+atualizarConta(); atualizarContador();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('../service-worker.js'));
+}
+</script>
+</body>
+</html>

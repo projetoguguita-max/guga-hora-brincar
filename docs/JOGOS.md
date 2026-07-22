@@ -94,6 +94,20 @@ Todos os mini-jogos do portal, com status, habilidades desenvolvidas e metadados
 
 ---
 
+### 7. Blocos e Carinhas
+| Campo | Valor |
+|---|---|
+| **Arquivo** | `jogos/blocos-carinhas.html` |
+| **Status** | ✅ Ativo |
+| **Categoria** | Cores / Matemática |
+| **Habilidades** | Contagem, adição, comparação, leitura de números por extenso, coordenação |
+| **Faixa etária** | 4–8 anos |
+| **Dificuldade** | ⭐⭐ (médio) |
+| **Assets** | `assets/video/muito_bem.mp4` |
+| **Notas** | Inspirado no hiperfoco do Gustavo (numberblocks + adesivos). A criança **monta a conta** (dois números de 1 a 10, com botões − / +), colore livre numa matriz 10×10 e cola carinhas (tocar carinha → tocar bloco); ao tocar em Conferir, o jogo compara o total pintado com o resultado da conta. 10 carinhas de emoções desenhadas em SVG (genéricas, sem copyright). Layout one-page, pensado para tablet. |
+
+---
+
 ## Backlog de Jogos (💡 Ideias)
 
 ### Linguagem / Alfabeto (categoria ainda zerada — alta prioridade!)
