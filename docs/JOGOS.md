@@ -99,12 +99,12 @@ Todos os mini-jogos do portal, com status, habilidades desenvolvidas e metadados
 |---|---|
 | **Arquivo** | `jogos/blocos-carinhas.html` |
 | **Status** | ✅ Ativo |
-| **Categoria** | Cores / Matemática |
-| **Habilidades** | Contagem, adição, comparação, leitura de números por extenso, coordenação |
+| **Categoria** | Cores / Criação |
+| **Habilidades** | Reconhecimento de cores, coordenação, reconhecimento de números |
 | **Faixa etária** | 4–8 anos |
-| **Dificuldade** | ⭐⭐ (médio) |
-| **Assets** | `assets/video/muito_bem.mp4` |
-| **Notas** | Inspirado no hiperfoco do Gustavo (numberblocks + adesivos). A criança **monta a conta** (dois números de 1 a 10, com botões − / +), colore livre numa matriz 10×10 e cola carinhas (tocar carinha → tocar bloco); ao tocar em Conferir, o jogo compara o total pintado com o resultado da conta. 10 carinhas de emoções desenhadas em SVG (genéricas, sem copyright). Layout one-page, pensado para tablet. |
+| **Dificuldade** | ⭐ (fácil) |
+| **Assets** | Nenhum (tudo SVG inline) |
+| **Notas** | Tela livre de criação, inspirada no hiperfoco do Gustavo (numberblocks + adesivos). A criança pinta livre numa matriz 10×10 (paleta de 10 cores), cola **carinhas** (tocar carinha → tocar bloco) e cola **plaquinhas de número** — digita o número e toca "Gerar" para criar um círculo transparente com o número em preto, marcando qual número está montando. 10 carinhas desenhadas em SVG (originais e genéricas, sem copyright — inspiradas em tipos de expressão: um olho, óculos, coroa, olhos quadrados, estrela, cílios, arco-íris, etc.). Borracha, Desfazer e Limpar tudo. Layout one-page, pensado para tablet. Sem comemoração/evento GA4 de conclusão (é tela livre, sem objetivo a "concluir"). |
 
 ---
 

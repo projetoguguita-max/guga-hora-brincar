@@ -3,7 +3,7 @@
  * Atualizar CACHE_VERSION a cada deploy para limpar o cache anterior.
  */
 
-const CACHE_VERSION = 'guguita-v5';
+const CACHE_VERSION = 'guguita-v6';
 const CACHE_ASSETS = [
   '/',
   '/index.html',
