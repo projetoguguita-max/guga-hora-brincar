@@ -108,6 +108,23 @@ Todos os mini-jogos do portal, com status, habilidades desenvolvidas e metadados
 
 ---
 
+## Ferramentas (não-jogos)
+
+Páginas de apoio ao dia a dia do Gustavo — não têm "conclusão" nem evento `jogo_concluido`.
+
+### Calendário do Papai
+| Campo | Valor |
+|---|---|
+| **Arquivo** | `jogos/calendario-do-papai.html` |
+| **Status** | ✅ Ativo |
+| **Categoria** | Previsibilidade / Rotina |
+| **Habilidades** | Noção de tempo, previsibilidade, contagem regressiva ("dormidas") |
+| **Assets** | Nenhum (tudo SVG inline; esqueleto pronto para plugar foto/vídeo do Papai) |
+| **Analytics** | Evento próprio `dia_carimbado` (não usa `jogo_concluido`) |
+| **Notas** | Calendário de previsibilidade de 30 dias. Herói com o número gigante de **dormidas até o Papai voltar** (frase muda por dia; comemora com confete no dia da volta). Grade tipo calendário (semanas Dom–Sáb) colorida por **fases** (com o Papai, Papai viajando) e **marcos** pontuais (volta às aulas, Papai volta). Chips de **filtro** para aprofundar por tipo de dia; tocar num dia abre o **detalhe**. A criança **carimba o dia de hoje** (localStorage) — dias passados já vêm carimbados, dias futuros ficam bloqueados. Cálculo automático por `new Date()`; datas/eventos editáveis nas constantes do topo (`DATA_INICIO`, `FASES`, `MARCOS`). Para testar outras datas: `?hoje=AAAA-MM-DD`. |
+
+---
+
 ## Backlog de Jogos (💡 Ideias)
 
 ### Linguagem / Alfabeto (categoria ainda zerada — alta prioridade!)
