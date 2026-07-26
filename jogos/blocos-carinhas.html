@@ -168,7 +168,7 @@ const CORES = [
    Inspiradas em tipos de expressão/emoção: um olho, óculos, coroa, olhos
    quadrados, olho de estrela, cílios, arco-íris, espantado, dentão,
    tímido, sério, bravo, tonto, piscadinha, sorrisão, curioso,
-   franzido, língua e calmo. */
+   franzido, língua, calmo, máscara, óculos escuros, espetado e alvo. */
 function pontosEstrela(cx,cy,rO,rI){
   let p=[];
   for(let i=0;i<10;i++){const r=i%2===0?rO:rI;const a=-Math.PI/2+i*Math.PI/5;
@@ -291,6 +291,29 @@ const FACES = {
     + `<rect x="57" y="34" width="13" height="22" rx="6.5" fill="#fff" stroke="#2A1A0A" stroke-width="2.5"/>`
     + `<circle cx="36.5" cy="46" r="4.5" fill="#2A1A0A"/><circle cx="63.5" cy="46" r="4.5" fill="#2A1A0A"/>`
     + boca('M36 68 Q50 76 64 68')) },
+  'mascara':{ nome:'Máscara', svg: wrap(
+    `<path d="M15 31 L38 27 L50 37 L62 27 L85 31 L82 45 Q66 53 61 40 Q56 47 50 42 Q44 47 39 40 Q34 53 18 45 Z" fill="#33408F" stroke="#2A1A0A" stroke-width="2.5" stroke-linejoin="round"/>`
+    + `<ellipse cx="35" cy="37" rx="8" ry="7" fill="#fff" stroke="#2A1A0A" stroke-width="2"/>`
+    + `<ellipse cx="65" cy="37" rx="8" ry="7" fill="#fff" stroke="#2A1A0A" stroke-width="2"/>`
+    + `<circle cx="35" cy="38" r="3.6" fill="#2A1A0A"/><circle cx="65" cy="38" r="3.6" fill="#2A1A0A"/>`
+    + boca('M32 64 Q50 80 68 64')) },
+  'oculos-sol':{ nome:'Óculos escuros', svg: wrap(
+    `<path d="M12 40 L24 41 M76 41 L88 40" stroke="#2A1A0A" stroke-width="3" stroke-linecap="round"/>`
+    + `<path d="M47 41 L53 41" stroke="#2A1A0A" stroke-width="3.5" stroke-linecap="round"/>`
+    + `<rect x="23" y="34" width="24" height="16" rx="7" fill="#26262B" stroke="#2A1A0A" stroke-width="2.5"/>`
+    + `<rect x="53" y="34" width="24" height="16" rx="7" fill="#26262B" stroke="#2A1A0A" stroke-width="2.5"/>`
+    + `<path d="M27 38 L38 38" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>`
+    + `<path d="M57 38 L68 38" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>`
+    + boca('M34 66 Q50 79 66 66')) },
+  'espetado':{ nome:'Espetado', svg: wrap(
+    `<path d="M22 34 L26 23 L30 32 L34 21 L38 32 L42 23 L46 34" fill="none" stroke="#2A1A0A" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`
+    + `<path d="M54 34 L58 23 L62 32 L66 21 L70 32 L74 23 L78 34" fill="none" stroke="#2A1A0A" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`
+    + olhoQuad(34,47,10) + olhoQuad(66,47,10) + boca('M32 66 Q50 82 68 66')) },
+  'alvo':{ nome:'Alvo', svg: wrap(
+    `<circle cx="34" cy="43" r="13" fill="#fff" stroke="#2A1A0A" stroke-width="2.5"/>`
+    + `<circle cx="34" cy="43" r="8.5" fill="none" stroke="#2F7FC0" stroke-width="2.5"/>`
+    + `<circle cx="34" cy="43" r="4" fill="#2A1A0A"/>`
+    + olhoRedondo(66,43,12) + boca('M34 66 Q50 78 66 66')) },
 };
 
 /* ── Plaquinha de número (círculo transparente + número preto) ── */
