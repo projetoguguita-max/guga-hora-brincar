@@ -165,8 +165,10 @@ const CORES = [
 ];
 
 /* ── Carinhas (SVG desenhado à mão, originais, sem imagens externas) ──
-   Inspiradas em tipos de expressão: um olho, óculos, coroa, olhos
-   quadrados, olho de estrela, cílios, arco-íris, espantado, dentão. */
+   Inspiradas em tipos de expressão/emoção: um olho, óculos, coroa, olhos
+   quadrados, olho de estrela, cílios, arco-íris, espantado, dentão,
+   tímido, sério, bravo, tonto, piscadinha, sorrisão, curioso,
+   franzido, língua e calmo. */
 function pontosEstrela(cx,cy,rO,rI){
   let p=[];
   for(let i=0;i<10;i++){const r=i%2===0?rO:rI;const a=-Math.PI/2+i*Math.PI/5;
@@ -193,6 +195,14 @@ function olhoEstrela(cx,cy,rO,rI){
 function boca(d){
   return `<path d="${d}" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/>`
        + `<path d="${d}" fill="none" stroke="#2A1A0A" stroke-width="5" stroke-linecap="round"/>`;
+}
+function olhoEspiral(cx,cy){
+  let d=`M ${cx} ${cy}`;
+  const voltas=2.6, passos=46, rMax=10.5;
+  for(let i=1;i<=passos;i++){ const t=i/passos, a=t*voltas*2*Math.PI, r=t*rMax;
+    d+=` L ${(cx+r*Math.cos(a)).toFixed(1)} ${(cy+r*Math.sin(a)).toFixed(1)}`; }
+  return `<circle cx="${cx}" cy="${cy}" r="13" fill="#fff" stroke="#2A1A0A" stroke-width="2.5"/>`
+       + `<path d="${d}" fill="none" stroke="#2A1A0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
 }
 const wrap = inner => `<svg viewBox="0 0 100 100">${inner}</svg>`;
 
@@ -234,6 +244,53 @@ const FACES = {
     + `<path d="M34 59 Q50 65 66 59 L66 67 Q50 72 34 67 Z" fill="#fff"/>`) },
   'duas-estrelas':{ nome:'Duas estrelas', svg: wrap(
     olhoEstrela(34,42,14,6) + olhoEstrela(66,42,14,6) + boca('M28 62 Q50 84 72 62')) },
+  'timido':{ nome:'Tímido', svg: wrap(
+    `<rect x="29" y="35" width="16" height="19" rx="7" fill="#fff" stroke="#2A1A0A" stroke-width="2.5"/>`
+    + `<rect x="55" y="35" width="16" height="19" rx="7" fill="#fff" stroke="#2A1A0A" stroke-width="2.5"/>`
+    + `<circle cx="37" cy="47" r="4.5" fill="#2A1A0A"/><circle cx="63" cy="47" r="4.5" fill="#2A1A0A"/>`
+    + `<ellipse cx="26" cy="60" rx="7.5" ry="4.5" fill="#E38A8A" opacity=".55"/>`
+    + `<ellipse cx="74" cy="60" rx="7.5" ry="4.5" fill="#E38A8A" opacity=".55"/>`
+    + boca('M42 66 Q50 73 58 66')) },
+  'serio':{ nome:'Sério', svg: wrap(
+    `<path d="M22 29 L45 29" stroke="#2A1A0A" stroke-width="4.5" stroke-linecap="round"/>`
+    + `<path d="M55 29 L78 29" stroke="#2A1A0A" stroke-width="4.5" stroke-linecap="round"/>`
+    + olhoQuad(34,46,11) + olhoQuad(66,46,11) + boca('M34 68 Q50 74 66 68')) },
+  'bravo':{ nome:'Bravo', svg: wrap(
+    `<path d="M22 27 L45 37" stroke="#2A1A0A" stroke-width="4.5" stroke-linecap="round"/>`
+    + `<path d="M78 27 L55 37" stroke="#2A1A0A" stroke-width="4.5" stroke-linecap="round"/>`
+    + olhoQuad(34,48,10) + olhoQuad(66,48,10) + boca('M34 73 Q50 66 66 73')) },
+  'tonto':{ nome:'Tonto', svg: wrap(
+    olhoEspiral(34,44) + olhoEspiral(66,44)
+    + `<path d="M32 68 Q41 62 50 68 Q59 74 68 68" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/>`
+    + `<path d="M32 68 Q41 62 50 68 Q59 74 68 68" fill="none" stroke="#2A1A0A" stroke-width="5" stroke-linecap="round"/>`) },
+  'piscada':{ nome:'Piscadinha', svg: wrap(
+    olhoRedondo(34,42,12)
+    + `<path d="M56 46 Q66 37 76 46" fill="none" stroke="#2A1A0A" stroke-width="3.5" stroke-linecap="round"/>`
+    + boca('M30 62 Q50 82 70 62')) },
+  'sorrisao':{ nome:'Sorrisão', svg: wrap(
+    olhoRedondo(34,40,12) + olhoRedondo(66,40,12)
+    + `<path d="M28 58 Q50 88 72 58 Z" fill="#7a2b2b" stroke="#2A1A0A" stroke-width="3" stroke-linejoin="round"/>`
+    + `<path d="M32 60 Q50 66 68 60 Z" fill="#fff"/>`
+    + `<ellipse cx="50" cy="78" rx="9" ry="7" fill="#E86A8A"/>`) },
+  'curioso':{ nome:'Curioso', svg: wrap(
+    `<path d="M24 30 Q34 21 44 30" fill="none" stroke="#2A1A0A" stroke-width="3.5" stroke-linecap="round"/>`
+    + `<path d="M56 30 Q66 21 76 30" fill="none" stroke="#2A1A0A" stroke-width="3.5" stroke-linecap="round"/>`
+    + olhoRedondo(34,47,12) + olhoRedondo(66,47,12)
+    + `<ellipse cx="50" cy="74" rx="6" ry="7.5" fill="#2A1A0A" stroke="#fff" stroke-width="2.5"/>`) },
+  'franzido':{ nome:'Franzido', svg: wrap(
+    `<path d="M22 34 L34 24 L44 32 L50 26 L56 32 L66 24 L78 34" fill="none" stroke="#2A1A0A" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>`
+    + olhoRedondo(34,50,9) + olhoRedondo(66,50,9)
+    + boca('M36 71 Q50 66 64 71')) },
+  'lingua':{ nome:'Língua', svg: wrap(
+    olhoRedondo(34,42,12) + olhoRedondo(66,42,12)
+    + `<path d="M32 62 Q50 74 68 62" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/>`
+    + `<path d="M32 62 Q50 74 68 62" fill="none" stroke="#2A1A0A" stroke-width="5" stroke-linecap="round"/>`
+    + `<path d="M46 69 Q45 87 53 87 Q62 87 59 69 Z" fill="#E86A8A" stroke="#2A1A0A" stroke-width="2.5" stroke-linejoin="round"/>`) },
+  'calmo':{ nome:'Calmo', svg: wrap(
+    `<rect x="30" y="34" width="13" height="22" rx="6.5" fill="#fff" stroke="#2A1A0A" stroke-width="2.5"/>`
+    + `<rect x="57" y="34" width="13" height="22" rx="6.5" fill="#fff" stroke="#2A1A0A" stroke-width="2.5"/>`
+    + `<circle cx="36.5" cy="46" r="4.5" fill="#2A1A0A"/><circle cx="63.5" cy="46" r="4.5" fill="#2A1A0A"/>`
+    + boca('M36 68 Q50 76 64 68')) },
 };
 
 /* ── Plaquinha de número (círculo transparente + número preto) ── */
