@@ -168,7 +168,8 @@ const CORES = [
    Inspiradas em tipos de expressão/emoção: um olho, óculos, coroa, olhos
    quadrados, olho de estrela, cílios, arco-íris, espantado, dentão,
    tímido, sério, bravo, tonto, piscadinha, sorrisão, curioso,
-   franzido, língua, calmo, máscara, óculos escuros, espetado e alvo. */
+   franzido, língua, calmo, máscara, óculos escuros, espetado, alvo,
+   sobrancelha colorida e bigode. */
 function pontosEstrela(cx,cy,rO,rI){
   let p=[];
   for(let i=0;i<10;i++){const r=i%2===0?rO:rI;const a=-Math.PI/2+i*Math.PI/5;
@@ -314,6 +315,26 @@ const FACES = {
     + `<circle cx="34" cy="43" r="8.5" fill="none" stroke="#2F7FC0" stroke-width="2.5"/>`
     + `<circle cx="34" cy="43" r="4" fill="#2A1A0A"/>`
     + olhoRedondo(66,43,12) + boca('M34 66 Q50 78 66 66')) },
+  'colorida':{ nome:'Sobrancelha colorida', svg: wrap(
+    // asa esquerda (leque arco-íris fanando pra cima e pra fora)
+    `<path d="M42 33 L40 18" stroke="#C84040" stroke-width="3.2" stroke-linecap="round"/>`
+    + `<path d="M40 34 L33 19" stroke="#E8843A" stroke-width="3.2" stroke-linecap="round"/>`
+    + `<path d="M38 34 L27 21" stroke="#E8B840" stroke-width="3.2" stroke-linecap="round"/>`
+    + `<path d="M35 34 L22 24" stroke="#4A9B6F" stroke-width="3.2" stroke-linecap="round"/>`
+    + `<path d="M33 34 L18 28" stroke="#2F7FC0" stroke-width="3.2" stroke-linecap="round"/>`
+    + `<path d="M31 34 L16 32" stroke="#7C5AC7" stroke-width="3.2" stroke-linecap="round"/>`
+    // asa direita (espelhada)
+    + `<path d="M58 33 L60 18" stroke="#C84040" stroke-width="3.2" stroke-linecap="round"/>`
+    + `<path d="M60 34 L67 19" stroke="#E8843A" stroke-width="3.2" stroke-linecap="round"/>`
+    + `<path d="M62 34 L73 21" stroke="#E8B840" stroke-width="3.2" stroke-linecap="round"/>`
+    + `<path d="M65 34 L78 24" stroke="#4A9B6F" stroke-width="3.2" stroke-linecap="round"/>`
+    + `<path d="M67 34 L82 28" stroke="#2F7FC0" stroke-width="3.2" stroke-linecap="round"/>`
+    + `<path d="M69 34 L84 32" stroke="#7C5AC7" stroke-width="3.2" stroke-linecap="round"/>`
+    + olhoRedondo(40,48,10) + olhoRedondo(60,48,10) + boca('M40 68 Q50 76 60 68')) },
+  'bigode':{ nome:'Bigode', svg: wrap(
+    olhoRedondo(34,40,11) + olhoRedondo(66,40,11)
+    + `<path d="M50 61 Q39 53 28 58 Q20 62 24 67 Q31 63 36 62 Q44 60 50 64 Q56 60 64 62 Q69 63 76 67 Q80 62 72 58 Q61 53 50 61 Z" fill="#3A2A1A" stroke="#2A1A0A" stroke-width="1.6" stroke-linejoin="round"/>`
+    + boca('M42 76 Q50 81 58 76')) },
 };
 
 /* ── Plaquinha de número (círculo transparente + número preto) ── */
