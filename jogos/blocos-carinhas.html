@@ -169,7 +169,7 @@ const CORES = [
    quadrados, olho de estrela, cílios, arco-íris, espantado, dentão,
    tímido, sério, bravo, tonto, piscadinha, sorrisão, curioso,
    franzido, língua, calmo, máscara, óculos escuros, espetado, alvo,
-   sobrancelha colorida e bigode. */
+   sobrancelha colorida, bigode e vilão. */
 function pontosEstrela(cx,cy,rO,rI){
   let p=[];
   for(let i=0;i<10;i++){const r=i%2===0?rO:rI;const a=-Math.PI/2+i*Math.PI/5;
@@ -335,6 +335,12 @@ const FACES = {
     olhoRedondo(34,40,11) + olhoRedondo(66,40,11)
     + `<path d="M50 61 Q39 53 28 58 Q20 62 24 67 Q31 63 36 62 Q44 60 50 64 Q56 60 64 62 Q69 63 76 67 Q80 62 72 58 Q61 53 50 61 Z" fill="#3A2A1A" stroke="#2A1A0A" stroke-width="1.6" stroke-linejoin="round"/>`
     + boca('M42 76 Q50 81 58 76')) },
+  'vilao':{ nome:'Vilão', svg: wrap(
+    // sobrancelhas angulares pontudas (roxas)
+    `<path d="M12 20 L22 30 L46 39 L44 44 L24 37 L16 30 Z" fill="#5B3A9E" stroke="#2A1A0A" stroke-width="2" stroke-linejoin="round"/>`
+    + `<path d="M88 20 L78 30 L54 39 L56 44 L76 37 L84 30 Z" fill="#5B3A9E" stroke="#2A1A0A" stroke-width="2" stroke-linejoin="round"/>`
+    + olhoRedondo(35,51,10) + olhoRedondo(65,51,10)
+    + boca('M34 70 Q50 78 66 68')) },
 };
 
 /* ── Plaquinha de número (círculo transparente + número preto) ── */
