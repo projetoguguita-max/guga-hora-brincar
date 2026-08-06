@@ -125,7 +125,16 @@
 
 <script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js'));
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js', { updateViaCache: 'none' });
+    let reloaded = false;
+    const tinhaControle = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!tinhaControle || reloaded) return;   // 1ª instalação não recarrega
+      reloaded = true;
+      window.location.reload();                 // versão nova assumiu: recarrega 1x
+    });
+  });
 }
 </script>
 </body>

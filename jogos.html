@@ -47,6 +47,7 @@
 .mult .icone      { background: var(--verde); }
 .blocos .icone    { background: var(--rosa); }
 .cara .icone      { background: #E8B840; color: #2A1A0A; }
+.adesivos .icone  { background: var(--roxo); }
 .aventura .icone  { background: var(--laranja); }
 .calendario { border-color: var(--laranja); box-shadow: 0 6px 0 var(--laranja), 0 9px 20px rgba(212,115,58,.16); }
 .calendario .icone { background: var(--laranja); }
@@ -195,6 +196,14 @@
         </div>
       </a>
 
+      <a class="card adesivos" href="jogos/adesivos.html">
+        <div class="icone">✂️</div>
+        <div>
+          <h2 class="nome">Folha de adesivos</h2>
+          <p class="desc">Monte a folha das carinhas e imprima adesivos de 2 cm para recortar.</p>
+        </div>
+      </a>
+
     </section>
 
     <a class="btn-home" href="index.html">← Início</a>
@@ -203,7 +212,16 @@
 
 <script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js'));
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js', { updateViaCache: 'none' });
+    let reloaded = false;
+    const tinhaControle = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!tinhaControle || reloaded) return;
+      reloaded = true;
+      window.location.reload();
+    });
+  });
 }
 </script>
 </body>

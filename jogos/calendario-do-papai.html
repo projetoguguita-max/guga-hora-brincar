@@ -598,7 +598,16 @@ if(heroi.dataset.fase==='volta') festa(60);
 </script>
 <script>
 if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>navigator.serviceWorker.register('../service-worker.js'));
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('../service-worker.js', { updateViaCache: 'none' });
+    let reloaded = false;
+    const tinhaControle = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', ()=>{
+      if(!tinhaControle || reloaded) return;
+      reloaded = true;
+      window.location.reload();
+    });
+  });
 }
 </script>
 </body>
