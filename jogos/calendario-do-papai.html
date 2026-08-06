@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#F5EDD8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Calendário do Papai">
-<meta name="description" content="Calendário de previsibilidade do Projeto Guguita: quantas dormidas faltam para o Papai voltar e onde estamos na rotina.">
+<meta name="description" content="Calendário de previsibilidade do Projeto Guguita: dormidas até o Papai voltar, onde o Gustavo dorme e a rotina de cada dia.">
 <link rel="manifest" href="../manifest.json">
 <link rel="apple-touch-icon" href="../assets/img/capa-guga.jpg">
 <link rel="stylesheet" href="../assets/css/base.css">
@@ -41,10 +41,14 @@ body{padding:12px 12px 26px}
 .heroi[data-fase="quase"] .h-num{color:var(--laranja)}
 .heroi[data-fase="quase"] .h-media{background:linear-gradient(160deg,#e8975a,var(--laranja))}
 .heroi[data-fase="volta"]{border-color:var(--verde);box-shadow:0 6px 0 var(--verde),0 12px 24px rgba(74,155,111,.2)}
-.heroi[data-fase="volta"] .h-num,.heroi[data-fase="depois"] .h-num{color:var(--verde)}
-.heroi[data-fase="volta"] .h-media,.heroi[data-fase="depois"] .h-media{background:linear-gradient(160deg,#6cbd8d,var(--verde))}
-.heroi[data-fase="antes"] .h-num{color:var(--verde)}
-.heroi[data-fase="antes"] .h-media{background:linear-gradient(160deg,#6cbd8d,var(--verde))}
+.heroi[data-fase="volta"] .h-num,.heroi[data-fase="antes"] .h-num,.heroi[data-fase="papai"] .h-num{color:var(--verde)}
+.heroi[data-fase="volta"] .h-media,.heroi[data-fase="antes"] .h-media,.heroi[data-fase="papai"] .h-media{background:linear-gradient(160deg,#6cbd8d,var(--verde))}
+.heroi[data-fase="mamae"] .h-num{color:var(--rosa)}
+.heroi[data-fase="mamae"] .h-media{background:linear-gradient(160deg,#e88bc0,var(--rosa))}
+.heroi[data-fase="viagem-guga"] .h-num{color:var(--laranja)}
+.heroi[data-fase="viagem-guga"] .h-media{background:linear-gradient(160deg,#e8975a,var(--laranja))}
+.heroi[data-fase="comum"] .h-num{color:var(--marrom)}
+.heroi[data-fase="comum"] .h-media{background:linear-gradient(160deg,#d8c79c,var(--bege-esc))}
 
 /* ── Filtros (aprofundar por tipo de dia) ──────────────────── */
 .filtros{display:flex;flex-wrap:wrap;gap:8px}
@@ -53,8 +57,8 @@ body{padding:12px 12px 26px}
   font-family:'Baloo 2',cursive;font-weight:800;font-size:14px;cursor:pointer;
   -webkit-user-select:none;user-select:none;transition:transform .1s,box-shadow .1s,filter .1s}
 .filtro:active{transform:translateY(2px)}
-.filtro .pino{width:16px;height:16px;border-radius:5px;flex:0 0 auto}
-.filtro .pino svg{width:100%;height:100%;color:#fff;display:block}
+.filtro .pino{width:18px;height:18px;border-radius:6px;flex:0 0 auto;display:grid;place-items:center}
+.filtro .pino svg{width:74%;height:74%;color:#fff;display:block}
 .filtro[aria-pressed="true"]{color:#fff;border-color:transparent;box-shadow:0 4px 0 rgba(0,0,0,.16)}
 .filtro[aria-pressed="true"] .pino{background:rgba(255,255,255,.28)!important}
 
@@ -71,27 +75,32 @@ body{padding:12px 12px 26px}
 .dia:active{transform:translateY(2px)}
 .d-num{font-family:'Baloo 2',cursive;font-weight:900;font-size:clamp(15px,4vw,22px);line-height:1}
 .d-mes{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:var(--cinza);margin-top:-2px}
-.d-ic{margin-top:auto;width:60%;max-width:26px;color:#fff}
+.d-ic{margin-top:auto;width:58%;max-width:26px;color:#fff}
 .d-ic svg{width:100%;height:100%;display:block}
+.d-tags{display:flex;gap:3px;justify-content:center;margin-top:3px}
+.d-tags i{width:7px;height:7px;border-radius:50%;display:block;box-shadow:0 0 0 1.5px rgba(255,255,255,.7)}
 .d-carimbo{position:absolute;top:2px;right:2px;width:20px;height:20px;color:var(--amarelo)}
 .d-carimbo svg{width:100%;height:100%;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
 
 /* fora do período mostrado */
 .dia.fora{opacity:.32;border-style:dashed;cursor:default;background:transparent}
 .dia.fora:active{transform:none}
-/* fases (cor de fundo do dia) */
-.dia.tipo-com-papai{background:#e9f5ee;border-color:#bfe2cd}
-.dia.tipo-com-papai .d-ic{color:var(--verde)}
+/* onde o Guga passa/dorme o dia (cor de fundo) */
+.dia.tipo-papai{background:#e9f5ee;border-color:#bfe2cd}
+.dia.tipo-papai .d-ic{color:var(--verde)}
+.dia.tipo-mamae{background:#fdeaf5;border-color:#f2c2df}
+.dia.tipo-mamae .d-ic{color:var(--rosa)}
 .dia.tipo-viagem{background:#e6f0f9;border-color:#bcd8ef}
 .dia.tipo-viagem .d-ic{color:var(--azul)}
+.dia.tipo-viagem-guga{background:#fdeede;border-color:#f5cfa0}
+.dia.tipo-viagem-guga .d-ic{color:var(--laranja)}
 .dia.tipo-comum{background:#fffaf0;border-color:var(--bege)}
 /* marco pontual sobrepõe o ícone com sua cor */
-.dia.marco-volta-papai .d-ic{color:var(--laranja)}
+.dia.marco-volta-papai .d-ic{color:var(--amarelo)}
 .dia.marco-aulas .d-ic{color:var(--roxo)}
 
 /* passado / futuro / hoje */
 .dia.passado{filter:saturate(.55) opacity(.72)}
-.dia.futuro .d-ic{opacity:.9}
 .dia.hoje{border-color:var(--marrom);border-width:4px;box-shadow:0 0 0 4px rgba(139,94,60,.16);
   animation:respira 1.8s ease-in-out infinite}
 .dia.selecionado{outline:4px solid var(--azul);outline-offset:1px}
@@ -101,21 +110,29 @@ body{padding:12px 12px 26px}
 
 /* ── Detalhe do dia (aprofundar) ───────────────────────────── */
 .detalhe{background:var(--branco);border:3px solid var(--bege-esc);border-radius:20px;padding:15px 17px;
-  box-shadow:0 6px 0 var(--bege-esc),0 12px 24px rgba(139,94,60,.1);display:flex;flex-direction:column;gap:10px}
+  box-shadow:0 6px 0 var(--bege-esc),0 12px 24px rgba(139,94,60,.1);display:flex;flex-direction:column;gap:11px}
 .det-topo{display:flex;align-items:center;gap:12px}
 .det-emblema{width:52px;height:52px;flex:0 0 auto;border-radius:14px;display:grid;place-items:center;color:#fff}
 .det-emblema svg{width:56%;height:56%}
-.det-emblema.tipo-com-papai{background:var(--verde)}
+.det-emblema.tipo-papai{background:var(--verde)}
+.det-emblema.tipo-mamae{background:var(--rosa)}
 .det-emblema.tipo-viagem{background:var(--azul)}
+.det-emblema.tipo-viagem-guga{background:var(--laranja)}
 .det-emblema.tipo-comum{background:var(--bege-esc)}
 .det-data{font-family:'Baloo 2',cursive;font-weight:900;font-size:clamp(17px,4vw,23px);color:var(--marrom);line-height:1.05}
 .det-fase{font-weight:800;color:var(--texto);font-size:clamp(14px,3.2vw,17px)}
 .det-extra{font-weight:800;color:var(--azul);font-size:clamp(14px,3.2vw,17px)}
+.grupo-rotulo{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#9a704f;margin:2px 0 -4px}
+.rotina{display:flex;flex-direction:column;gap:8px}
+.rotina-item{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--texto);font-size:clamp(14px,3.2vw,17px)}
+.rotina-ic{width:34px;height:34px;flex:0 0 auto;border-radius:10px;display:grid;place-items:center;color:#fff}
+.rotina-ic svg{width:58%;height:58%}
+.rotina-seta{color:var(--bege-esc);text-align:center;font-size:13px;margin:-4px 0}
 .det-marcos{display:flex;flex-wrap:wrap;gap:6px}
 .det-marco{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;
   font-weight:800;font-size:13px;color:#fff}
 .det-marco svg{width:15px;height:15px}
-.det-marco.marco-volta-papai{background:var(--laranja)}
+.det-marco.marco-volta-papai{background:var(--amarelo);color:var(--texto)}
 .det-marco.marco-aulas{background:var(--roxo)}
 .det-video{border-radius:14px;overflow:hidden;border:3px solid var(--bege);background:#000;display:none}
 .det-video video{width:100%;display:block}
@@ -152,6 +169,7 @@ body{padding:12px 12px 26px}
   .calendario{padding:10px}
   .semana-cab,.grade{gap:4px}
   .dia{border-radius:11px;border-width:2px}
+  .d-tags{display:none}   /* no celular, os pontinhos poluem — a rotina fica no detalhe */
 }
 </style>
 
@@ -193,7 +211,7 @@ body{padding:12px 12px 26px}
 
     <section class="cuidadores" id="cuidadores"></section>
 
-    <p class="rodape">Toque num dia para ver o que acontece 💛</p>
+    <p class="rodape">Toque num dia para ver a rotina 💛</p>
   </main>
 
 <script>
@@ -202,23 +220,48 @@ body{padding:12px 12px 26px}
    Ferramenta de PREVISIBILIDADE (não é um jogo com "conclusão").
 
    >>> PARA O RODRIGO EDITAR: só mexa neste bloco de configuração. <<<
-   Todo o resto (contagem de dormidas, cores, "hoje", carimbos) é
-   calculado sozinho a partir da data real do tablet.
+   A contagem de dormidas, cores, "hoje" e carimbos são calculados
+   sozinhos a partir da data real do tablet.
    ===================================================================== */
 
 /* Janela mostrada no calendário */
 const DATA_INICIO = '2026-07-25';   // primeiro dia mostrado
 const TOTAL_DIAS  = 30;             // quantos dias de previsibilidade
 
-/* Cuidadores (aparece na faixa afetiva) */
+/* Nome da AT (acompanhante terapêutica) que fica na escolinha */
+const AT_NOME   = 'Deyse';
+/* Cuidadores durante a viagem do Papai (faixa afetiva) */
 const CUIDADORES = 'A Mamãe, o Vovô e a Vovó';
 
-/* FASES = pintam o fundo do dia (intervalos, inclusive). Editar à vontade. */
+/* ONDE o Guga passa/dorme o dia — pinta o fundo (intervalos, inclusive).
+   tipos: 'papai' | 'mamae' | 'viagem' (Papai fora) | 'viagem-guga' (juntos) | 'comum' */
 const FASES = [
-  { de:'2026-07-25', ate:'2026-07-27', tipo:'com-papai' }, // fim de semana com o Papai
-  { de:'2026-07-28', ate:'2026-08-05', tipo:'viagem'    }, // Papai viajando
-  { de:'2026-08-06', ate:'2026-08-10', tipo:'com-papai' }, // Papai voltou, juntos
+  { de:'2026-07-25', ate:'2026-07-27', tipo:'papai'       }, // fim de semana com o Papai
+  { de:'2026-07-28', ate:'2026-08-05', tipo:'viagem'      }, // Papai viajando (sozinho)
+  { de:'2026-08-06', ate:'2026-08-06', tipo:'papai'       }, // Papai volta
+  { de:'2026-08-07', ate:'2026-08-10', tipo:'viagem-guga' }, // viagem do Papai + Guga
+  { de:'2026-08-11', ate:'2026-08-11', tipo:'papai'       },
+  { de:'2026-08-12', ate:'2026-08-13', tipo:'mamae'       },
+  { de:'2026-08-14', ate:'2026-08-15', tipo:'papai'       },
+  { de:'2026-08-16', ate:'2026-08-16', tipo:'mamae'       }, // manhã Papai, dorme na Mamãe
+  { de:'2026-08-17', ate:'2026-08-18', tipo:'papai'       },
+  { de:'2026-08-19', ate:'2026-08-22', tipo:'mamae'       },
+  { de:'2026-08-23', ate:'2026-08-23', tipo:'papai'       }, // volta pra casa do Papai
 ];
+
+/* ATIVIDADES do dia (em ordem). tipos: 'escolinha' | 'clinica' | 'natacao' | 'papai-manha' */
+const ATIVIDADES = {
+  '2026-08-11':['escolinha','clinica'],
+  '2026-08-12':['escolinha','clinica'],
+  '2026-08-13':['escolinha','clinica'],
+  '2026-08-14':['escolinha','natacao'],
+  '2026-08-16':['papai-manha'],            // manhã com o Papai, tarde/noite na Mamãe
+  '2026-08-17':['escolinha','clinica'],
+  '2026-08-18':['escolinha','clinica'],
+  '2026-08-19':['escolinha','clinica'],
+  '2026-08-20':['escolinha','clinica'],
+  '2026-08-21':['escolinha','natacao'],
+};
 
 /* MARCOS = ícone/marcador num dia específico. */
 const MARCOS = [
@@ -226,19 +269,21 @@ const MARCOS = [
   { data:'2026-08-03', tipo:'aulas'       }, // voltam as aulas / fim das férias
 ];
 
+/* Chips de filtro mostrados (ordem). */
+const FILTROS_LISTA = ['papai','mamae','viagem-guga','escolinha','clinica','natacao'];
+
 /* Foto/vídeo do Papai no herói (opcional — deixe '' para o desenho padrão).
    Ex.: FOTO_PAPAI = '../assets/img/papai.jpg';  (lembre de somar no service-worker.js) */
 const FOTO_PAPAI  = '';
 const VIDEO_VOLTA = '';   // ex.: '../assets/video/muito_bem.mp4' — toca no herói no dia da volta
 
 /* Vídeos por dia (opcional). Mapeie a data (YYYY-MM-DD) para um arquivo.
-   O ▶ só aparece quando o dia já chegou (hoje/passado). Ex.:
-   '2026-07-28': '../assets/video/dia-saida.mp4'  */
+   O ▶ só aparece quando o dia já chegou (hoje/passado). */
 const VIDEOS_POR_DIA = {
-  // '2026-07-28': '../assets/video/exemplo.mp4',
+  // '2026-08-06': '../assets/video/exemplo.mp4',
 };
 
-/* ── Config de cada tipo (rótulo + ícone) ── */
+/* ── Ícones (SVG desenhado à mão, sem imagens externas) ── */
 const IC = {
   coracao:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 20.6l-1.5-1.4C5.1 14.4 2 11.6 2 8.1 2 5.4 4.1 3.3 6.8 3.3c1.6 0 3.1.7 4 1.9.9-1.2 2.4-1.9 4-1.9 2.7 0 4.8 2.1 4.8 4.8 0 3.5-3.1 6.3-8.5 11.1L12 20.6z"/></svg>',
   aviao:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 15.5v-2l-8-4.5V4a1.5 1.5 0 0 0-3 0v5L2 13.5v2l8-2.2V18l-2 1.4V21l3.5-1 3.5 1v-1.6L13 18v-4.7l8 2.2z"/></svg>',
@@ -246,13 +291,26 @@ const IC = {
   livro:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 5.5C10.7 4.6 8.9 4 7 4H3v14h4c1.9 0 3.7.6 5 1.5V5.5zM21 4h-4c-1.9 0-3.7.6-5 1.5v14c1.3-.9 3.1-1.5 5-1.5h4V4z"/></svg>',
   estrela:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="m12 2 2.9 6.1 6.6.8-4.9 4.5 1.3 6.6L12 17.9 6.1 20.6l1.3-6.6L2.5 8.9l6.6-.8L12 2z"/></svg>',
   mala:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 4h6a2 2 0 0 1 2 2v1h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2V6a2 2 0 0 1 2-2zm0 3h6V6H9v1z"/></svg>',
+  escola:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 3a3 3 0 0 1 6 0h1a4 4 0 0 1 4 4v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a4 4 0 0 1 4-4h1zm2 0a1 1 0 0 0-2 0h2zM8 12v2h8v-2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1z"/></svg>',
+  clinica:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6z"/></svg>',
+  natacao:'<svg viewBox="0 0 24 24"><circle cx="17" cy="6" r="2.2" fill="currentColor"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 11l4 2 3-3 4 2M3 17c1.5 0 1.5-1.2 3-1.2S10.5 17 12 17s1.5-1.2 3-1.2S19.5 17 21 17M3 20.5c1.5 0 1.5-1.2 3-1.2s1.5 1.2 3 1.2 1.5-1.2 3-1.2 1.5 1.2 3 1.2 1.5-1.2 3-1.2"/></svg>',
+  sol:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1.5v2.5M12 20v2.5M2.5 12H5M19 12h2.5M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></g></svg>',
+  feliz:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><circle cx="8.5" cy="10" r="1.5" fill="#fff"/><circle cx="15.5" cy="10" r="1.5" fill="#fff"/><path d="M7.5 14.5c1.2 1.8 2.7 2.6 4.5 2.6s3.3-.8 4.5-2.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>',
 };
+
+/* ── Config de cada tipo (rótulo + ícone + cor) ── */
 const TIPOS = {
-  'com-papai':   { rotulo:'Com o Papai',   ic:IC.coracao, cor:'#4A9B6F' },
-  'viagem':      { rotulo:'Papai viajando',ic:IC.aviao,   cor:'#2F7FC0' },
-  'volta-papai': { rotulo:'Papai volta',   ic:IC.casa,    cor:'#D4733A' },
-  'aulas':       { rotulo:'Volta às aulas',ic:IC.livro,   cor:'#7C5AC7' },
-  'comum':       { rotulo:'Dia comum',     ic:'',         cor:'#C8B890' },
+  'papai':       { rotulo:'Com o Papai',        ic:IC.casa,    cor:'#4A9B6F' },
+  'mamae':       { rotulo:'Com a Mamãe',        ic:IC.casa,    cor:'#D963A5' },
+  'viagem':      { rotulo:'Papai viajando',     ic:IC.aviao,   cor:'#2F7FC0' },
+  'viagem-guga': { rotulo:'Viagem com o Papai', ic:IC.feliz,   cor:'#D4733A' },
+  'comum':       { rotulo:'Dia tranquilo',      ic:'',         cor:'#C8B890' },
+  'escolinha':   { rotulo:'Escolinha',          ic:IC.escola,  cor:'#7C5AC7' },
+  'clinica':     { rotulo:'Clínica',            ic:IC.clinica, cor:'#C84040' },
+  'natacao':     { rotulo:'Natação',            ic:IC.natacao, cor:'#5BA8E0' },
+  'papai-manha': { rotulo:'Manhã com o Papai',  ic:IC.sol,     cor:'#E8B840' },
+  'volta-papai': { rotulo:'Papai volta',        ic:IC.casa,    cor:'#E8B840' },
+  'aulas':       { rotulo:'Volta às aulas',     ic:IC.livro,   cor:'#7C5AC7' },
 };
 
 /* ── Datas: helpers ── */
@@ -286,9 +344,19 @@ function faseDoDia(dt){
   for(const f of FASES){ if(s>=f.de && s<=f.ate) return f.tipo; }
   return 'comum';
 }
-function marcosDoDia(dt){
-  const s = iso(dt);
-  return MARCOS.filter(m=>m.data===s).map(m=>m.tipo);
+function marcosDoDia(dt){ const s=iso(dt); return MARCOS.filter(m=>m.data===s).map(m=>m.tipo); }
+function atividadesDoDia(dt){ return ATIVIDADES[iso(dt)] || []; }
+
+/* Rotina do dia em sequência (atividades + onde dorme). [] se não há atividades. */
+function rotinaDoDia(dt){
+  const acts = atividadesDoDia(dt);
+  if(!acts.length) return [];
+  const seq = acts.map(a=>({ tipo:a, txt: a==='escolinha' ? ('Escolinha com a '+AT_NOME) : TIPOS[a].rotulo }));
+  const base = faseDoDia(dt);
+  if(base==='papai')            seq.push({tipo:'papai',       txt:'Casa do Papai'});
+  else if(base==='mamae')       seq.push({tipo:'mamae',       txt:'Casa da Mamãe'});
+  else if(base==='viagem-guga') seq.push({tipo:'viagem-guga', txt:'Viagem com o Papai!'});
+  return seq;
 }
 
 /* ── localStorage: carimbos ── */
@@ -310,49 +378,49 @@ const hFrase = document.getElementById('h-frase'), hMedia = document.getElementB
 
 /* ===================== HERÓI ===================== */
 function renderHeroi(){
-  let fase='conta', num='0', label='', frase='';
+  let fase, numHTML, label='', frase='', mediaIcon=IC.mala;
   const nVolta = DATA_VOLTA ? diffDias(HOJE, DATA_VOLTA) : null;
 
   if(DATA_VOLTA && DATA_SAIDA && HOJE < DATA_SAIDA){
     const d = diffDias(HOJE, DATA_SAIDA);
-    fase='antes'; num=String(d); label = d===1?'dia para o Papai viajar':'dias para o Papai viajar';
-    frase = faseDoDia(HOJE)==='com-papai' ? 'Você está com o Papai! 💛' : 'O Papai ainda está por aqui. 💛';
+    fase='antes'; numHTML=String(d); label = d===1?'dia para o Papai viajar':'dias para o Papai viajar';
+    frase='Você está com o Papai! 💛'; mediaIcon=IC.casa;
   } else if(DATA_VOLTA && nVolta>0){
     fase = nVolta<=1 ? 'quase' : 'conta';
-    num=String(nVolta); label = nVolta===1?'dormida para o Papai voltar':'dormidas para o Papai voltar';
+    numHTML=String(nVolta); label = nVolta===1?'dormida para o Papai voltar':'dormidas para o Papai voltar';
     frase = nVolta===1 ? 'Falta só 1 dormida! Amanhã o Papai volta! 🎒'
                        : 'Faltam ' + nVolta + ' dormidas para o Papai voltar!';
+    mediaIcon=IC.mala;
   } else if(DATA_VOLTA && nVolta===0){
-    fase='volta'; num=IC.casa; label=''; frase='É hoje! O Papai volta pra casa! 🎉';
+    fase='volta'; numHTML=IC.casa; frase='É hoje! O Papai volta pra casa! 🎉'; mediaIcon=IC.casa;
   } else {
-    fase='depois'; num=IC.coracao; label='';
-    frase = faseDoDia(HOJE)==='com-papai' ? 'O Papai está de volta! Vocês estão juntos! 💛'
-                                          : 'O Papai já voltou da viagem! 💛';
+    // Depois da volta: vira o "onde você está hoje"
+    const base = faseDoDia(HOJE);
+    fase = base;
+    numHTML = (TIPOS[base] && TIPOS[base].ic) ? TIPOS[base].ic : IC.coracao;
+    if(base==='papai'){ frase='Hoje você está com o Papai! 💙'; mediaIcon=IC.casa; }
+    else if(base==='mamae'){ frase='Hoje você está com a Mamãe! 💗'; mediaIcon=IC.casa; }
+    else if(base==='viagem-guga'){ frase='Que legal! Hoje é viagem com o Papai! ✈️😄'; mediaIcon=IC.feliz; }
+    else { frase='Hoje é um dia tranquilo. 💛'; mediaIcon=IC.casa; }
   }
   heroi.dataset.fase = fase;
-  hNum.innerHTML = num.startsWith('<svg') ? num : num;
+  hNum.innerHTML = numHTML;
   hLabel.textContent = label; hLabel.style.display = label?'block':'none';
   hFrase.textContent = frase;
 
-  // Mídia do herói: vídeo da volta > foto > desenho
   if(fase==='volta' && VIDEO_VOLTA){
     hMedia.innerHTML = '<video src="'+VIDEO_VOLTA+'" autoplay muted loop playsinline></video>';
   } else if(FOTO_PAPAI){
     hMedia.innerHTML = '<img src="'+FOTO_PAPAI+'" alt="Papai">';
   } else {
-    hMedia.innerHTML = (fase==='antes'||fase==='volta'||fase==='depois') ? IC.casa : IC.mala;
+    hMedia.innerHTML = mediaIcon;
   }
 }
 
 /* ===================== FILTROS ===================== */
-function tiposEmUso(){
-  const set = new Set(FASES.map(f=>f.tipo));
-  MARCOS.forEach(m=>set.add(m.tipo));
-  return [...set];
-}
 function renderFiltros(){
   elFiltros.innerHTML='';
-  tiposEmUso().forEach(tp=>{
+  FILTROS_LISTA.forEach(tp=>{
     const cfg=TIPOS[tp]; if(!cfg) return;
     const b=document.createElement('button');
     b.type='button'; b.className='filtro'; b.dataset.tipo=tp;
@@ -368,13 +436,14 @@ function renderFiltros(){
 }
 function diaBateFiltro(dt){
   if(!estado.filtro) return true;
-  return faseDoDia(dt)===estado.filtro || marcosDoDia(dt).includes(estado.filtro);
+  return faseDoDia(dt)===estado.filtro
+      || atividadesDoDia(dt).includes(estado.filtro)
+      || marcosDoDia(dt).includes(estado.filtro);
 }
 function aplicarFiltro(){
   [...elGrade.children].forEach(cel=>{
     if(cel.classList.contains('fora')) return;
-    const dt=parseD(cel.dataset.iso);
-    cel.classList.toggle('apagado', !diaBateFiltro(dt));
+    cel.classList.toggle('apagado', !diaBateFiltro(parseD(cel.dataset.iso)));
   });
 }
 
@@ -383,9 +452,8 @@ function renderGrade(){
   elGrade.innerHTML='';
   const inicio = parseD(DATA_INICIO);
   const fim    = somaDias(inicio, TOTAL_DIAS-1);
-  // alinhar às semanas Dom–Sáb
-  const gridIni = somaDias(inicio, -inicio.getDay());
-  const gridFim = somaDias(fim, 6-fim.getDay());
+  const gridIni = somaDias(inicio, -inicio.getDay());     // Domingo da 1ª semana
+  const gridFim = somaDias(fim, 6-fim.getDay());          // Sábado da última semana
   const total = diffDias(gridIni, gridFim)+1;
   const hojeISO = iso(HOJE);
 
@@ -400,26 +468,25 @@ function renderGrade(){
       elGrade.appendChild(cel); continue;
     }
     const fase = faseDoDia(dt), marcos = marcosDoDia(dt);
+    const acts = atividadesDoDia(dt).filter(a=>['escolinha','clinica','natacao'].includes(a));
     cel.classList.add('tipo-'+fase);
     marcos.forEach(m=>cel.classList.add('marco-'+m));
     if(s<hojeISO) cel.classList.add('passado');
     else if(s===hojeISO) cel.classList.add('hoje');
-    else cel.classList.add('futuro');
     if(s===estado.selecionado) cel.classList.add('selecionado');
 
-    // ícone: marco tem prioridade sobre a fase
-    let icone='';
-    if(marcos.length) icone = TIPOS[marcos[0]].ic;
-    else if(TIPOS[fase]) icone = TIPOS[fase].ic;
-
-    const carimbado = carimbos.has(s) || s<hojeISO; // passados aparecem "já foi"
-    const mostraMes = dt.getDate()===1 || k===0 || (dentro && s===DATA_INICIO);
+    let icone = marcos.length ? TIPOS[marcos[0]].ic : (TIPOS[fase] ? TIPOS[fase].ic : '');
+    const carimbado = carimbos.has(s) || s<hojeISO;
+    const mostraMes = dt.getDate()===1 || s===DATA_INICIO;
+    const tagsHTML = acts.length
+      ? '<span class="d-tags">'+acts.map(a=>'<i style="background:'+TIPOS[a].cor+'"></i>').join('')+'</span>' : '';
 
     cel.setAttribute('aria-label', SEM_EXT[dt.getDay()]+', '+dt.getDate()+' de '+MESES_EXT[dt.getMonth()]);
     cel.innerHTML =
       '<span class="d-num">'+dt.getDate()+'</span>'+
       (mostraMes?'<span class="d-mes">'+MESES[dt.getMonth()]+'</span>':'')+
       (icone?'<span class="d-ic">'+icone+'</span>':'')+
+      tagsHTML+
       (carimbado?'<span class="d-carimbo">'+IC.estrela+'</span>':'');
     elGrade.appendChild(cel);
   }
@@ -437,17 +504,22 @@ function renderDetalhe(){
   const dt = parseD(estado.selecionado), s = estado.selecionado, hojeISO = iso(HOJE);
   const fase = faseDoDia(dt), marcos = marcosDoDia(dt), cfg = TIPOS[fase];
   const ehHoje = (s===hojeISO), passado = (s<hojeISO), futuro = (s>hojeISO);
+  const rotina = rotinaDoDia(dt);
 
   let extra='';
-  if(DATA_VOLTA){
+  if(DATA_VOLTA && fase==='viagem'){
     const n = diffDias(dt, DATA_VOLTA);
-    if(marcos.includes('volta-papai')) extra='';
-    else if(fase==='viagem' && n>0) extra = (n===1?'Falta 1 dormida':'Faltam '+n+' dormidas')+' para o Papai voltar.';
+    if(n>0) extra = (n===1?'Falta 1 dormida':'Faltam '+n+' dormidas')+' para o Papai voltar.';
   }
 
   const marcosHTML = marcos.map(m=>'<span class="det-marco marco-'+m+'">'+TIPOS[m].ic+TIPOS[m].rotulo+'</span>').join('');
+  const rotinaHTML = rotina.length
+    ? '<div class="grupo-rotulo">Rotina do dia</div><div class="rotina">'+
+      rotina.map((r,i)=>(i?'<div class="rotina-seta">▾</div>':'')+
+        '<div class="rotina-item"><span class="rotina-ic" style="background:'+TIPOS[r.tipo].cor+'">'+TIPOS[r.tipo].ic+'</span>'+r.txt+'</div>'
+      ).join('')+'</div>'
+    : '';
 
-  // botão de carimbo: só HOJE. Passado = já foi. Futuro = bloqueado.
   let carimbarHTML='';
   if(ehHoje){
     const feito = carimbos.has(s);
@@ -459,7 +531,6 @@ function renderDetalhe(){
     carimbarHTML = '<div class="det-fase">Ainda não chegou esse dia. Vamos esperar! 😊</div>';
   }
 
-  // vídeo do dia (só se já chegou e existir no mapa)
   const vid = VIDEOS_POR_DIA[s];
   const videoHTML = (vid && !futuro)
     ? '<div class="det-video" style="display:block"><video src="'+vid+'" controls playsinline></video></div>' : '';
@@ -472,6 +543,7 @@ function renderDetalhe(){
     '</div>'+
     (marcosHTML?'<div class="det-marcos">'+marcosHTML+'</div>':'')+
     (extra?'<div class="det-extra">'+extra+'</div>':'')+
+    rotinaHTML+
     videoHTML+
     carimbarHTML;
 
@@ -479,11 +551,10 @@ function renderDetalhe(){
   if(btn) btn.addEventListener('click', ()=>carimbarHoje(btn));
 }
 
-function carimbarHoje(btn){
+function carimbarHoje(){
   const s = iso(HOJE);
-  if(carimbos.has(s)){                 // toque de novo desfaz (agência, sem punição)
-    carimbos.delete(s); salvarCarimbos(carimbos);
-  } else {
+  if(carimbos.has(s)){ carimbos.delete(s); salvarCarimbos(carimbos); }
+  else {
     carimbos.add(s); salvarCarimbos(carimbos);
     festa(24);
     try{ gtag('event','dia_carimbado',{ data:s }); }catch(e){}
@@ -493,9 +564,12 @@ function carimbarHoje(btn){
 
 /* ===================== CUIDADORES ===================== */
 function renderCuidadores(){
-  document.getElementById('cuidadores').innerHTML =
-    '<span class="cor">'+IC.coracao+'</span>'+
-    '<span>O Papai foi viajar, mas você está bem cuidado! '+CUIDADORES+' estão com você.</span>';
+  const band = document.getElementById('cuidadores');
+  if(faseDoDia(HOJE)==='viagem'){   // só faz sentido enquanto o Papai está viajando sozinho
+    band.style.display='flex';
+    band.innerHTML = '<span class="cor">'+IC.coracao+'</span>'+
+      '<span>O Papai foi viajar, mas você está bem cuidado! '+CUIDADORES+' estão com você.</span>';
+  } else { band.style.display='none'; }
 }
 
 /* ===================== CONFETE ===================== */
@@ -520,7 +594,7 @@ renderFiltros();
 renderGrade();
 renderDetalhe();
 renderCuidadores();
-if(heroi.dataset.fase==='volta') festa(60);   // comemoração no dia da volta
+if(heroi.dataset.fase==='volta') festa(60);
 </script>
 <script>
 if('serviceWorker' in navigator){
